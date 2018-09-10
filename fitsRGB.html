@@ -28,68 +28,59 @@
     </style>
     <title>JS9</title>
   </head>
-<body>
-    <center><font size="+1">
-    <b>JS9 Demo: independent instances of JS9</b>
-    </font></center>
-    <table>
-      <tr valign="top">
-        NGC 1530 FITS files:
-        <td>
-        <input type="button" id="red" value="IO:O, SDSS-r" onclick="javascript:loadim('h_e_20170203_15_1_1_1.fits', 'red')">
-        <!--<li> <a href='javascript:JS9.Load("images/h_e_20170203_15_1_1_1.fits", {scale:"log", colormap:"red", contrast:"5", parentFile:"fits/h_e_20170203_15_1_1_1.fits"}, {display: "redChannel"});'>NGC 1530 (IO:O, SDSS-r)</a>-->
-        </td>
-        <td>
-        <input type="button" id="green" value="IO:O, SDSS-g" onclick="javascript:loadim('h_e_20170203_16_1_1_1.fits', 'green')">
-        <!--<li> <a href='javascript:JS9.Load("images/h_e_20170203_16_1_1_1.fits", {scale:"log", colormap:"green", contrast:"5", parentFile:"fits/h_e_20170203_16_1_1_1.fits"}, {display: "greenChannel"});'>NGC 1530 (IO:O, SDSS-g)</a>-->
-        </td>
-        <td>
-        <input type="button" id="blue" value="IO:O, Bessel-B" onclick="javascript:loadim('h_e_20170203_17_1_1_1.fits', 'blue')">
-        <!--<li> <a href='javascript:JS9.Load("images/h_e_20170203_17_1_1_1.fits", {scale:"log", colormap:"blue", contrast:"3", bias:"0.35", parentFile:"fits/h_e_20170203_17_1_1_1.fits"}, {display: "blueChannel"});'>NGC 1530 (IO:O, Bessel-B)</a>-->
-        </td>
-      </tr>
-
-      <tr valign="top">
-        <td colspan="3">
-        <div class="JS9Menubar"></div>
-        <div class="JS9" id="JS9" data-width="470px" data-height="470px"></div>
-        </td>
-      </tr>
-      <tr valign="top">
-        <td>
-        <div class="JS9" id="redChannel" data-width="150px" data-height="150px"></div>
-        </td>
-        <td>
-        <div class="JS9" id="greenChannel" data-width="150px" data-height="150px"></div>
-        </td>
-        <td>
-        <div class="JS9" id="blueChannel" data-width="150px" data-height="150px"></div>
-        </td>
-      </tr>
+  <body>
+    <center>
+      NGC 1530 FITS files:
+      <input type="button" id="red" value="IO:O, SDSS-r" onclick="javascript:loadim('h_e_20170203_15_1_1_1.fits', 'red')">
+      <input type="button" id="green" value="IO:O, SDSS-g" onclick="javascript:loadim('h_e_20170203_16_1_1_1.fits', 'green')">
+      <input type="button" id="blue" value="IO:O, Bessel-B" onclick="javascript:loadim('h_e_20170203_17_1_1_1.fits', 'blue')">
       <p>
-    </table>
+      <div class="JS9Menubar"></div>
+      <p>
+      <table>
+        <tr valign="top">
+          <td>
+            <div class="JS9" id="JS9" data-width="600px" data-height="600px"></div>
+          </td>
+          <td>
+            <table>
+              <tr>
+                <div class="JS9" id="redChannel" data-width="200px" data-height="200px"></div>
+              </tr>
+              <tr>
+                <div class="JS9" id="greenChannel" data-width="200px" data-height="200px"></div>
+              </tr>
+              <tr>
+                <div class="JS9" id="blueChannel" data-width="200px" data-height="200px"></div>
+              </tr>
+              </td>
+            </table>
+        </tr>
+        <p>
+      </table>
+    </center>
     <script type="text/javascript">
       JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
       JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
       JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
-
+      
       var ropts = {};
       var xdir = "images/";
       var loaded = [false, false, false, false];
       var reprojed = [false, false, false, false];
       var sigma = 1;
-
+      
       function init(){
           $('#blur').prop('selectedIndex', 0);
           $('#blend').prop('selectedIndex', 0);
           $('#opacity').prop('selectedIndex', 0);
       }
-
+      
       function loadim(s, colour){
           var idx = -1;
           var file = s;
           console.log("loading: %s", file)
-          opts = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.5",parentFile:"fits/"+file, onload: function(im) {
+          opts = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.5", parentFile:"fits/"+file, onload: function(im) {
           JS9.BlendDisplay(true);
           JS9.BlendImage(true);
           JS9.BlendImage("screen", 0.8);
@@ -97,7 +88,7 @@
           JS9.Load(xdir+file, opts, {display: colour+"Channel"});
           JS9.Load(xdir+file, opts, {display: "JS9"});
       }
-
+      
       function reproject(){
         var im = JS9.GetImage();
         for(i=0; i<loaded.length; i++){
@@ -108,7 +99,7 @@
             }
         }       
       }
-
+      
       function xblur(target){
         var im = JS9.GetImage();
         var sigma = target.options[target.selectedIndex].value;
@@ -117,7 +108,7 @@
           im.gaussBlurData(parseFloat(sigma));
         }
       }
-
+      
       function xblend(target){
         var im = JS9.GetImage();
         var blend = target.options[target.selectedIndex].value;
@@ -125,7 +116,7 @@
             im.blendImage(blend);
         }
       }
-
+      
       function xopacity(target){
         var im = JS9.GetImage();
         var opacity = target.options[target.selectedIndex].value;
@@ -133,13 +124,13 @@
           im.blendImage(null, opacity);
         }
       }
-
+      
       function toggle(){
           blendMode = !blendMode;
           JS9.BlendDisplay(blendMode);
           $("#blendstr").html(blendMode ? "<b>on<\/b>" : "<b>off<\/b>");
       }
-
+      
     </script>
   </body>
 </html>
