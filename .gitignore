@@ -1,2 +1,4 @@
 .DS*
 ._DS*
+*.swp
+*.save*
