@@ -35,23 +35,21 @@
       <input type="button" id="green" value="IO:O, SDSS-g" onclick="javascript:loadim('h_e_20170203_16_1_1_1.fits', 'green')">
       <input type="button" id="blue" value="IO:O, Bessel-B" onclick="javascript:loadim('h_e_20170203_17_1_1_1.fits', 'blue')">
       <p>
-      <div class="JS9Menubar"></div>
-      <p>
       <table>
         <tr valign="top">
           <td>
-            <div class="JS9" id="JS9" data-width="600px" data-height="600px"></div>
+            <div class="JS9" id="JS9" data-width="600px" data-height="600px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div>
           </td>
           <td>
             <table>
               <tr>
-                <div class="JS9" id="redChannel" data-width="200px" data-height="200px"></div>
+                <div class="JS9" id="redChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div>
               </tr>
               <tr>
-                <div class="JS9" id="greenChannel" data-width="200px" data-height="200px"></div>
+                <div class="JS9" id="greenChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div>
               </tr>
               <tr>
-                <div class="JS9" id="blueChannel" data-width="200px" data-height="200px"></div>
+                <div class="JS9" id="blueChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div>
               </tr>
               </td>
             </table>
@@ -60,75 +58,65 @@
       </table>
     </center>
     <script type="text/javascript">
-      JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
-      JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
-      JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
+      JS9.globalOpts.mouseActions[1] = "pan the image";
+      JS9.globalOpts.touchActions[1] = "pan the image";
+      JS9.globalOpts.mousetouchZoom = true;
+      JS9.globalOpts.clearImageMemory = "auto";
       
-      var ropts = {};
+      //JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
+      //JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
+      //JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
+      
+      JS9.textColorOpts = {
+          regions: "#C7D401",
+          info:    "#C7D401",
+          inimage: "#000000"
+      };
+      
       var xdir = "images/";
-      var loaded = [false, false, false, false];
-      var reprojed = [false, false, false, false];
-      var sigma = 1;
-      
-      function init(){
-          $('#blur').prop('selectedIndex', 0);
-          $('#blend').prop('selectedIndex', 0);
-          $('#opacity').prop('selectedIndex', 0);
-      }
+      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
       
       function loadim(s, colour){
           var idx = -1;
           var file = s;
           console.log("loading: %s", file)
           opts = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.5", parentFile:"fits/"+file, onload: function(im) {
-          JS9.BlendDisplay(true);
-          JS9.BlendImage(true);
-          JS9.BlendImage("screen", 0.8);
-        }}
-          JS9.Load(xdir+file, opts, {display: colour+"Channel"});
+            JS9.BlendDisplay(true);
+            JS9.BlendImage(true);
+            JS9.BlendImage("screen", 0.8);
+            }
+          }
+          optsChannel = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.1666", parentFile:"fits/"+file, onload: function(im) {
+            JS9.getImage(colour+"Channel").display.mouseActions[0] = "";
+            }}
+          JS9.Load(xdir+file, optsChannel, {display: colour+"Channel"});
           JS9.Load(xdir+file, opts, {display: "JS9"});
       }
       
-      function reproject(){
-        var im = JS9.GetImage();
-        for(i=0; i<loaded.length; i++){
-            if( loaded[i] && (loaded[i] !== im) && (reprojed[i] === false) ){
-              console.log("reprojecting %d: %s using %s", i, loaded[i], im.id);
-              loaded[i].reprojectData(im, ropts);
-        reprojed[i] = true;
+      function pandisplay(s){
+          panpos = JS9.getImage(s).getPan(s);
+          //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
+          for(i=0; i<displayid.length; i++){
+            if( displayid[i] != s ){
+              JS9.getImage(displayid[i]).setPan(panpos.x, panpos.y);
             }
-        }       
+          }
       }
       
-      function xblur(target){
-        var im = JS9.GetImage();
-        var sigma = target.options[target.selectedIndex].value;
-        if( im && sigma !== "" ){
-          console.log("blur: %s %s", im.id, sigma);
-          im.gaussBlurData(parseFloat(sigma));
+      function zoomdisplay(s){
+          zoomlevel = JS9.getImage(s).getZoom(s);
+          //console.log("Zoom: (" + zoomlevel + ")");
+          for(i=0; i<displayid.length; i++){
+            if( displayid[i] != s ){
+              if (s == "JS9"){
+                JS9.getImage(displayid[i]).setZoom(zoomlevel*0.5);
+            } else if (displayid[i] == "JS9") {
+                JS9.getImage(displayid[i]).setZoom(zoomlevel*2.0);
+            } else {
+                JS9.getImage(displayid[i]).setZoom(zoomlevel);
+            }
+          }
         }
-      }
-      
-      function xblend(target){
-        var im = JS9.GetImage();
-        var blend = target.options[target.selectedIndex].value;
-        if( im && blend !== "" ){
-            im.blendImage(blend);
-        }
-      }
-      
-      function xopacity(target){
-        var im = JS9.GetImage();
-        var opacity = target.options[target.selectedIndex].value;
-        if( im && opacity !== "" ){
-          im.blendImage(null, opacity);
-        }
-      }
-      
-      function toggle(){
-          blendMode = !blendMode;
-          JS9.BlendDisplay(blendMode);
-          $("#blendstr").html(blendMode ? "<b>on<\/b>" : "<b>off<\/b>");
       }
       
     </script>

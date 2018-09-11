@@ -146,6 +146,21 @@
       </tr>
     </table>
     <script type="text/javascript">
+      JS9.globalOpts.mouseActions[1] = "pan the image";
+      JS9.globalOpts.touchActions[1] = "pan the image";
+      JS9.globalOpts.mousetouchZoom = true;
+      JS9.globalOpts.infoBox = ["file", "object", "wcsfov", "wcscen", "wcspos", "impos", "value"];
+      
+      //JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
+      //JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
+      //JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
+      
+      JS9.textColorOpts = {
+          regions: "#C7D401",
+          info:    "#C7D401",
+          inimage: "#000000"
+      };
+      
       var files = [
         "images/h_e_20180728_62_1_1_1.fits"
       ];
