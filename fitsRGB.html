@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="image/x-icon" rel="shortcut icon" href="./favicon.ico">
     <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
-    <link type="text/css" rel="stylesheet" href="javascripts/js9/js9support.css">
     <link type="text/css" rel="stylesheet" href="javascripts/js9/js9.css">
     <link rel="apple-touch-icon" href="images/js9-apple-touch-icon.png">
     <script type="text/javascript" src="javascripts/js9/js9prefs.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9support.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
-    <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
     <style type="text/css">
       #centerdiv {
       position: absolute;
@@ -41,18 +39,32 @@
             <div class="JS9" id="JS9" data-width="600px" data-height="600px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div>
           </td>
           <td>
-            <table>
-              <tr>
-                <div class="JS9" id="redChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div>
-              </tr>
-              <tr>
-                <div class="JS9" id="greenChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div>
-              </tr>
-              <tr>
-                <div class="JS9" id="blueChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div>
-              </tr>
-              </td>
-            </table>
+            <div class="JS9" id="redChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div>
+            <div class="JS9" id="greenChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div>
+            <div class="JS9" id="blueChannel" data-width="200px" data-height="200px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div>
+          </td>
+          <td>
+            <div id="rgbslidercontainer" data-js9id="redChannel">
+              <input type="range" min="0" max="100" value="50" class="slider redBrightness" id='redBrightness'></input>
+            </div>
+            <div id="rgbslidercontainer" data-js9id="greenChannel">
+              <input type="range" min="0" max="100" value="50" class="slider greenBrightness" id='greenBrightness'></input>
+            </div>
+            <div id="rgbslidercontainer" data-js9id="blueChannel">
+              <input type="range" min="0" max="100" value="50" class="slider blueBrightness" id='blueBrightness'></input>
+            </div>
+          </td>
+          <td>
+            <div id="rgbslidercontainer" data-js9id="redChannel">
+              <input type="range" min="0" max="100" value="50" class="slider redContrast" id='redContrast'></input>
+            </div>
+            <div id="rgbslidercontainer" data-js9id="greenChannel">
+              <input type="range" min="0" max="100" value="50" class="slider greenContrast" id='greenContrast'></input>
+            </div>
+            <div id="rgbslidercontainer" data-js9id="blueChannel">
+              <input type="range" min="0" max="100" value="50" class="slider blueContrast" id='blueContrast'></input>
+            </div>
+          </td>
         </tr>
         <p>
       </table>
@@ -62,63 +74,169 @@
       JS9.globalOpts.touchActions[1] = "pan the image";
       JS9.globalOpts.mousetouchZoom = true;
       JS9.globalOpts.clearImageMemory = "auto";
-      
+
       //JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
       //JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
       //JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
-      
+
       JS9.textColorOpts = {
-          regions: "#C7D401",
-          info:    "#C7D401",
-          inimage: "#000000"
+        regions: "#C7D401",
+        info: "#C7D401",
+        inimage: "#000000"
       };
-      
+
       var xdir = "images/";
       var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
-      
-      function loadim(s, colour){
-          var idx = -1;
-          var file = s;
-          console.log("loading: %s", file)
-          opts = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.5", parentFile:"fits/"+file, onload: function(im) {
+
+      function loadim(s, colour) {
+        var idx = -1;
+        var file = s;
+        console.log("loading: %s", file)
+        opts = {
+          colormap: colour,
+          scale: "log",
+          contrast: "4.5",
+          bias: "0.4",
+          zoom: "0.5",
+          parentFile: "fits/" + file,
+          onload: function (im) {
             JS9.BlendDisplay(true);
             JS9.BlendImage(true);
             JS9.BlendImage("screen", 0.8);
-            }
           }
-          optsChannel = {colormap: colour, scale: "log", contrast: "4.5", bias: "0.4", zoom: "0.1666", parentFile:"fits/"+file, onload: function(im) {
-            JS9.getImage(colour+"Channel").display.mouseActions[0] = "";
-            }}
-          JS9.Load(xdir+file, optsChannel, {display: colour+"Channel"});
-          JS9.Load(xdir+file, opts, {display: "JS9"});
-      }
-      
-      function pandisplay(s){
-          panpos = JS9.getImage(s).getPan(s);
-          //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
-          for(i=0; i<displayid.length; i++){
-            if( displayid[i] != s ){
-              JS9.getImage(displayid[i]).setPan(panpos.x, panpos.y);
-            }
+        }
+        optsChannel = {
+          colormap: colour,
+          scale: "log",
+          contrast: "4.5",
+          bias: "0.4",
+          zoom: "0.1666",
+          parentFile: "fits/" + file,
+          onload: function (im) {
+            JS9.getImage(colour + "Channel").display.mouseActions[0] = "";
           }
+        }
+        JS9.Load(xdir + file, optsChannel, {
+          display: colour + "Channel"
+        });
+        JS9.Load(xdir + file, opts, {
+          display: "JS9"
+        });
       }
-      
-      function zoomdisplay(s){
-          zoomlevel = JS9.getImage(s).getZoom(s);
-          //console.log("Zoom: (" + zoomlevel + ")");
-          for(i=0; i<displayid.length; i++){
-            if( displayid[i] != s ){
-              if (s == "JS9"){
-                JS9.getImage(displayid[i]).setZoom(zoomlevel*0.5);
-            } else if (displayid[i] == "JS9") {
-                JS9.getImage(displayid[i]).setZoom(zoomlevel*2.0);
-            } else {
-                JS9.getImage(displayid[i]).setZoom(zoomlevel);
+
+      function pandisplay(s) {
+        panpos = JS9.getImage(s).getPan(s);
+        //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
+        for (i = 0; i < displayid.length; i++) {
+          if (displayid[i] != s) {
+            JS9.getImage(displayid[i]).setPan(panpos.x, panpos.y);
+          }
+        }
+      }
+
+      function zoomdisplay(s) {
+        zoomlevel = JS9.getImage(s).getZoom(s);
+        //console.log("Zoom: (" + zoomlevel + ")");
+        for (i = 0; i < displayid.length; i++) {
+          if (displayid[i] != s) {
+            if (s == "JS9") {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel * 0.5);
+            }
+            else if (displayid[i] == "JS9") {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel * 2.0);
+            }
+            else {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel);
             }
           }
         }
       }
-      
+
+      // Control the sliders
+      var redContrastRange = document.getElementById('redContrast'),
+        redBrightnessRange = document.getElementById('redBrightness'),
+        greenContrastRange = document.getElementById('greenContrast'),
+        greenBrightnessRange = document.getElementById('greenBrightness'),
+        blueContrastRange = document.getElementById('blueContrast'),
+        blueBrightnessRange = document.getElementById('blueBrightness'),
+        redContrast = parseFloat(redContrastRange.value),
+        redBrightness = parseFloat(redBrightnessRange.value);
+      greenContrast = parseFloat(greenContrastRange.value),
+        greenBrightness = parseFloat(greenBrightnessRange.value);
+      blueContrast = parseFloat(blueContrastRange.value),
+        blueBrightness = parseFloat(blueBrightnessRange.value);
+
+      function updateContrast(e, c) {
+        $(e).attr('value', c);
+        var newcontrast = c / 3;
+        var colourmap;
+        if (e.id == 'redContrast') {
+          colourmap = 'red';
+        }
+        else if (e.id == 'greenContrast') {
+          colourmap = 'green';
+        }
+        else if (e.id == 'blueContrast') {
+          colourmap = 'blue';
+        }
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == colourmap) {
+            image_list[i].params.contrast = newcontrast;
+            image_list[i].displayImage('all');
+          }
+        }
+      }
+
+      function updateBrightness(e, c) {
+        $(e).attr('value', c);
+        var newbias = 1 - c / 100;
+        var imageid;
+        if (e.id == 'redBrightness') {
+          colourmap = 'red';
+        }
+        else if (e.id == 'greenBrightness') {
+          colourmap = 'green';
+        }
+        else if (e.id == 'blueBrightness') {
+          colourmap = 'blue';
+        }
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == colourmap) {
+            image_list[i].params.bias = newbias;
+            image_list[i].displayImage('all');
+          }
+        }
+      }
+
+      // Listen to changes in the RGB sliders
+      redContrastRange.addEventListener('input', function () {
+        redContrast = parseFloat(this.value);
+        updateContrast(redContrastRange, redContrast);
+      });
+      redBrightnessRange.addEventListener('input', function () {
+        redBrightness = parseFloat(this.value);
+        updateBrightness(redBrightnessRange, redBrightness);
+      });
+
+      greenContrastRange.addEventListener('input', function () {
+        greenContrast = parseFloat(this.value);
+        updateContrast(greenContrastRange, greenContrast);
+      });
+      greenBrightnessRange.addEventListener('input', function () {
+        greenBrightness = parseFloat(this.value);
+        updateBrightness(greenBrightnessRange, greenBrightness);
+      });
+
+      blueContrastRange.addEventListener('input', function () {
+        blueContrast = parseFloat(this.value);
+        updateContrast(blueContrastRange, blueContrast);
+      });
+      blueBrightnessRange.addEventListener('input', function () {
+        blueBrightness = parseFloat(this.value);
+        updateBrightness(blueBrightnessRange, blueBrightness);
+      });
     </script>
   </body>
 </html>

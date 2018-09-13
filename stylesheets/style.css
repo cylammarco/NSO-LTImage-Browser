@@ -1,62 +1,201 @@
+:root {
+    --ljmu-blue: #1A3278;
+    --ljmu-green: #C7D401;
+    --grey80: #CCCCCC;
+    --grey15: #222222;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #CCCCCC;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: white;
+    background: var(--grey15);
 }
 
 a {
-  color: #1A3278;
+    color: var(--ljmu-blue);
 }
 
 
+/* zoom slider */
 
-/* slider */
-
-.slidecontainer {
-    margin-top: 2px;
-    height: 600px; /* Width of the outside container */
+#slidercontainer {
+    --sliderwidth: 600px;
+    --sliderheight: 60px;
+    --buttonsize: 30px;
+    height: var(--sliderwidth);
+    /* Width of the outside container */
     width: 70px;
 }
+
 
 /* The slider itself */
-.slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 600px; /* Full-width */
-    height: 70px; /* Specified height */
-    background: #1A3278; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-    transform-origin: 297px 298px;
-    transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
 
+#slidercontainer>.slider {
+    -webkit-appearance: none;
+    /* Override default CSS styles */
+    appearance: none;
+    width: var(--sliderwidth);
+    /* Full-width */
+    height: var(--sliderheight);
+    /* Specified height */
+    background: var(--ljmu-blue);
+    /* LJMU Blue background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.8;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .1s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .1s;
+    transform-origin: 0px 0px;
+    transform: translate(0px, var(--sliderwidth)) rotate(270deg);
+    -moz-transform: translate(0px, var(--sliderwidth)) rotate(270deg);
 }
+
 
 /* Mouse-over effects */
-.slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
+
+#slidercontainer>.slider:hover {
+    opacity: 1;
+    /* Fully shown on mouse-over */
 }
+
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+
+#slidercontainer>.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
     appearance: none;
-    width: 30px; /* Set a specific slider handle width */
-    height: 70px; /* Slider handle height */
-    background: #C7D401; /* Green background */
-    cursor: pointer; /* Cursor on hover */
+    width: var(--buttonsize);
+    /* Set a specific slider handle width */
+    height: var(--sliderheight);
+    /* Slider handle height */
+    background: var(--ljmu-green);
+    /* LJMU Green background */
+    cursor: pointer;
+    /* Cursor on hover */
 }
 
-.slider::-moz-range-thumb {
-    width: 30px; /* Set a specific slider handle width */
-    height: 70px; /* Slider handle height */
-    background: #C7D401; /* Green background */
-    cursor: pointer; /* Cursor on hover */
+#slidercontainer>.slider::-moz-range-track {
+    background-color: transparent;
 }
 
-.slidecontainerresetbutton {
-    width: 70px;
+#slidercontainer>.slider::-moz-range-thumb {
+    width: var(--buttonsize);
+    /* Set a specific slider handle width */
+    height: var(--sliderheight);
+    /* Slider handle height */
+    background: var(--ljmu-green);
+    /* LJMU Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+.zoomresetbutton {
+    width: var(--sliderheight);
+}
+
+
+/* RGB slider */
+
+#rgbslidercontainer {
+    --sliderheight: 200px;
+    --sliderwidth: 20px;
+    --buttonwidth: 10px;
+    --red-contrast: 25%;
+    --blue-contrast: 25%;
+    --green-contrast: 25%;
+    height: var(--sliderheight);
+    /* Width of the outside container */
+    width: var(--sliderwidth);
+}
+
+.redBrightness {
+    background: linear-gradient(to right, black, red, white);
+    /* Red */
+}
+
+.greenBrightness {
+    background: linear-gradient(to right, black, green, white);
+    /* Green */
+}
+
+.blueBrightness {
+    background: linear-gradient(to right, black, blue, white);
+    /* Blue */
+}
+
+.redContrast {
+    background: linear-gradient(to right, black calc(50% - var(--red-contrast)), white calc(50% + var(--red-contrast)));
+    /* Red */
+}
+
+.greenContrast {
+    background: linear-gradient(to right, black calc(50% - var(--green-contrast)), white calc(50% + var(--green-contrast)));
+    /* Green */
+}
+
+.blueContrast {
+    background: linear-gradient(to right, black calc(50% - var(--blue-contrast)), white calc(50% + var(--blue-contrast)));
+    /* Blue */
+}
+
+
+/* The slider itself */
+
+#rgbslidercontainer>.slider {
+    -webkit-appearance: slider-vertical;
+    /* Override default CSS styles */
+    writing-mode: bt-lr;
+    appearance: none;
+    width: var(--sliderheight);
+    /* Full-width */
+    height: var(--sliderwidth);
+    /* Specified height */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.8;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .1s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .1s;
+    transform-origin: 0px 10px;
+    transform: translate(0px, 190px) rotate(270deg);
+    -moz-transform: translate(0px, 190px) rotate(270deg);
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
+#rgbslidercontainer>.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    cursor: -webkit-grabbing;
+    /* Cursor on hover */
+}
+
+#rgbslidercontainer>.slider::-moz-range-track {
+    background-color: transparent;
+}
+
+#rgbslidercontainer>.slider::-moz-range-thumb {
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    cursor: -moz-grabbing;
+    /* Cursor on hover */
 }

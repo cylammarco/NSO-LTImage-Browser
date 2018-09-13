@@ -33,30 +33,30 @@
       <tr valign="top">
         <td>
           <input type="number" id="zoomLevelValue" value="0" min="0.03125" max="32"></input>
-          <div class="slidecontainer" data-js9id="JS9">
+          <div id="slidercontainer" data-js9id="JS9">
             <input type="range" min="-500" max="500" value="0" class="slider" id="zoomLevel"></input>
           </div>
-          <button class="slidecontainerresetbutton" id="zoomLevelReset">Reset</button>
+          <button class="zoomresetbutton" id="zoomLevelReset">Reset</button>
         </td>
         <td>
           <script type="text/javascript">
-            var slide = document.getElementById("zoomLevel");
-            var slideValue = document.getElementById("zoomLevelValue");
+            var slider = document.getElementById("zoomLevel");
+            var sliderValue = document.getElementById("zoomLevelValue");
             // When slider changes value, update input box
-            slide.oninput = function() {
+            slider.oninput = function() {
               slideValue.value = Math.pow(2, this.value/100);
               JS9.SetZoom(Math.pow(2, this.value/100));
             }
             // When input box changes value, update slider
-            slideValue.oninput = function() {
-              slide.value = Math.pow(2, this.value);
+            sliderValue.oninput = function() {
+              slider.value = Math.pow(2, this.value);
               JS9.SetZoom(Math.pow(2, this.value));
             }
             
             var reset = document.getElementById("zoomLevelReset");
             reset.onclick = function() {
-              slide.value = Math.pow(2, this.value);
-              slideValue.value = Math.pow(2, this.value/100);
+              slider.value = Math.pow(2, this.value);
+              sliderValue.value = Math.pow(2, this.value/100);
               JS9.SetZoom(Math.pow(2, this.value));
             }
             
