@@ -33,6 +33,15 @@
       <input type="button" id="green" value="IO:O, SDSS-g" onclick="javascript:loadim('h_e_20170203_16_1_1_1.fits', 'green')">
       <input type="button" id="blue" value="IO:O, Bessel-B" onclick="javascript:loadim('h_e_20170203_17_1_1_1.fits', 'blue')">
       <p>
+        <label class='label red'>Load Red File
+        <input id='redfile' type='file'>
+        </label>
+        <label class='label green'>Load Green File
+        <input id='greenfile' type='file'>
+        </label>
+        <label class='label blue'>Load Blue File
+        <input id='bluefile' type='file'>
+        </label>
       <table>
         <tr valign="top">
           <td>
@@ -74,22 +83,24 @@
       JS9.globalOpts.touchActions[1] = "pan the image";
       JS9.globalOpts.mousetouchZoom = true;
       JS9.globalOpts.clearImageMemory = "auto";
-
+      
       //JS9.AddColormap("red", [[0,0],[1,1]], [[0,0],[0,0]], [[0,0],[0,0]]);
       //JS9.AddColormap("green", [[0,0],[0,0]], [[0,0],[1,1]], [[0,0],[0,0]]);
       //JS9.AddColormap("blue", [[0,0],[0,0]], [[0,0],[0,0]], [[0,0],[1,1]]);
-
+      
+      
+      
+      /* Load files on server */
       JS9.textColorOpts = {
         regions: "#C7D401",
         info: "#C7D401",
         inimage: "#000000"
       };
-
+      
       var xdir = "images/";
       var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
-
+      
       function loadim(s, colour) {
-        var idx = -1;
         var file = s;
         console.log("loading: %s", file)
         opts = {
@@ -123,7 +134,58 @@
           display: "JS9"
         });
       }
-
+      
+      
+      /* Load files on local machine */
+      
+      var inputRed = document.querySelector('#redfile');
+      var inputGreen = document.querySelector('#greenfile');
+      var inputBlue = document.querySelector('#bluefile');
+      inputRed.addEventListener('change', readURLred);
+      inputGreen.addEventListener('change', readURLgreen);
+      inputBlue.addEventListener('change', readURLblue);
+      
+      function readURLred() {
+        readURL(inputRed, 'red');
+      }
+      
+      function readURLgreen() {
+        readURL(inputGreen, 'green');
+      }
+      
+      function readURLblue() {
+        readURL(inputBlue, 'blue');
+      }
+      
+      function readURL(input, colour) {
+        opts = {
+          colormap: colour,
+          scale: "log",
+          contrast: "4.5",
+          bias: "0.4",
+          zoom: "0.5",
+          parentFile: "fits/" + input.files[0].name,
+          onload: function (im) {
+            JS9.BlendDisplay(true);
+            JS9.BlendImage(true);
+            JS9.BlendImage("screen", 0.8);
+          }
+        }
+        optsChannel = {
+          colormap: colour,
+          scale: "log",
+          contrast: "4.5",
+          bias: "0.4",
+          zoom: "0.1666",
+          parentFile: "fits/" + input.files[0].name,
+          onload: function (im) {
+            JS9.getImage(colour + "Channel").display.mouseActions[0] = "";
+          }
+        }
+          JS9.Load(input.files[0], optsChannel, {display:colour + "Channel"});
+          JS9.Load(input.files[0], opts, {display:'JS9'});
+      }
+      
       function pandisplay(s) {
         panpos = JS9.getImage(s).getPan(s);
         //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
@@ -133,7 +195,7 @@
           }
         }
       }
-
+      
       function zoomdisplay(s) {
         zoomlevel = JS9.getImage(s).getZoom(s);
         //console.log("Zoom: (" + zoomlevel + ")");
@@ -151,7 +213,7 @@
           }
         }
       }
-
+      
       // Control the sliders
       var redContrastRange = document.getElementById('redContrast'),
         redBrightnessRange = document.getElementById('redBrightness'),
@@ -165,7 +227,7 @@
         greenBrightness = parseFloat(greenBrightnessRange.value);
       blueContrast = parseFloat(blueContrastRange.value),
         blueBrightness = parseFloat(blueBrightnessRange.value);
-
+      
       function updateContrast(e, c) {
         $(e).attr('value', c);
         var newcontrast = c / 3;
@@ -187,7 +249,7 @@
           }
         }
       }
-
+      
       function updateBrightness(e, c) {
         $(e).attr('value', c);
         var newbias = 1 - c / 100;
@@ -209,7 +271,7 @@
           }
         }
       }
-
+      
       // Listen to changes in the RGB sliders
       redContrastRange.addEventListener('input', function () {
         redContrast = parseFloat(this.value);
@@ -219,7 +281,7 @@
         redBrightness = parseFloat(this.value);
         updateBrightness(redBrightnessRange, redBrightness);
       });
-
+      
       greenContrastRange.addEventListener('input', function () {
         greenContrast = parseFloat(this.value);
         updateContrast(greenContrastRange, greenContrast);
@@ -228,7 +290,7 @@
         greenBrightness = parseFloat(this.value);
         updateBrightness(greenBrightnessRange, greenBrightness);
       });
-
+      
       blueContrastRange.addEventListener('input', function () {
         blueContrast = parseFloat(this.value);
         updateContrast(blueContrastRange, blueContrast);
@@ -237,6 +299,7 @@
         blueBrightness = parseFloat(this.value);
         updateBrightness(blueBrightnessRange, blueBrightness);
       });
+      
     </script>
   </body>
 </html>

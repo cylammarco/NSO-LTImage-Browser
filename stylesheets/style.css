@@ -16,6 +16,39 @@ a {
     color: var(--ljmu-blue);
 }
 
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-color: transparent;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.label {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+}
+
+.label.red {
+    background-color: red;
+}
+
+.label.green {
+    background-color: green;
+}
+
+.label.blue {
+    background-color: blue;
+}
+
 
 /* zoom slider */
 
@@ -32,9 +65,13 @@ a {
 /* The slider itself */
 
 #slidercontainer>.slider {
-    -webkit-appearance: none;
     /* Override default CSS styles */
+    /* Firefox */
     appearance: none;
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    writing-mode: none;
     width: var(--sliderwidth);
     /* Full-width */
     height: var(--sliderheight);
@@ -65,9 +102,13 @@ a {
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 
 #slidercontainer>.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    /* Override default look */
+    /* Override default CSS styles */
+    /* Firefox */
     appearance: none;
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    writing-mode: none;
     width: var(--buttonsize);
     /* Set a specific slider handle width */
     height: var(--sliderheight);
@@ -146,21 +187,19 @@ a {
 /* The slider itself */
 
 #rgbslidercontainer>.slider {
-    -webkit-appearance: slider-vertical;
     /* Override default CSS styles */
-    writing-mode: bt-lr;
+    /* Firefox */
     appearance: none;
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    writing-mode: none;
+    /* Full-width (height after rotation) */
     width: var(--sliderheight);
-    /* Full-width */
+    /* Specified height (width after rotation) */
     height: var(--sliderwidth);
-    /* Specified height */
     outline: none;
     /* Remove outline */
-    opacity: 0.8;
-    /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .1s;
-    /* 0.2 seconds transition on hover */
-    transition: opacity .1s;
     transform-origin: 0px 10px;
     transform: translate(0px, 190px) rotate(270deg);
     -moz-transform: translate(0px, 190px) rotate(270deg);
@@ -170,9 +209,11 @@ a {
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 
 #rgbslidercontainer>.slider::-webkit-slider-thumb {
+    /* Override default CSS styles */
+    /* Chrome */
     -webkit-appearance: none;
-    /* Override default look */
-    appearance: none;
+    /* IE */
+    writing-mode: none;
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);
@@ -180,7 +221,9 @@ a {
     background: transparent;
     /* Grey */
     border: 3px solid black;
+    border-radius: 4px;
     cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
     /* Cursor on hover */
 }
 
@@ -196,6 +239,5 @@ a {
     background: transparent;
     /* Grey */
     border: 3px solid black;
-    cursor: -moz-grabbing;
     /* Cursor on hover */
 }
