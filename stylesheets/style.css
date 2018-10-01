@@ -148,9 +148,6 @@ input[type="file"] {
     --red-contrast: 25%;
     --blue-contrast: 25%;
     --green-contrast: 25%;
-    height: var(--sliderheight);
-    /* Width of the outside container */
-    width: var(--sliderwidth);
 }
 
 .redBrightness {
@@ -184,9 +181,33 @@ input[type="file"] {
 }
 
 
+
+.verticalcontainer {
+    /* Full-width (height after rotation) */
+    width: var(--sliderwidth);
+    /* Specified height (width after rotation) */
+    height: var(--sliderheight);
+}
+
+
 /* The slider itself */
 
 #rgbslidercontainer>.slider {
+    /* Override default CSS styles */
+    /* Firefox */
+    appearance: none;
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    writing-mode: none;
+    /* Full-width (height after rotation) */
+    width: var(--sliderheight);
+    /* Specified height (width after rotation) */
+    height: var(--sliderwidth);
+    outline: none;
+}
+
+#rgbslidercontainer>.verticalslider {
     /* Override default CSS styles */
     /* Firefox */
     appearance: none;
@@ -207,6 +228,41 @@ input[type="file"] {
 
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
+#rgbslidercontainer>.verticalslider::-webkit-slider-thumb {
+    /* Override default CSS styles */
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    writing-mode: none;
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    border-radius: 4px;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    /* Cursor on hover */
+}
+
+#rgbslidercontainer>.verticalslider::-moz-range-track {
+    background-color: transparent;
+}
+
+#rgbslidercontainer>.verticalslider::-moz-range-thumb {
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    /* Cursor on hover */
+}
+
 
 #rgbslidercontainer>.slider::-webkit-slider-thumb {
     /* Override default CSS styles */

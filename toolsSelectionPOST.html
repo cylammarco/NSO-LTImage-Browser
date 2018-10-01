@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="image/x-icon" rel="shortcut icon" href="./favicon.ico">
+    <link rel="apple-touch-icon" href="images/js9-apple-touch-icon.png">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap-checkbox/dist/js/bootstrap-checkbox.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
+    <title>JS9</title>
+  </head>
+  <body>
+    <table cellpadding="10">
+      Please select the tools you would like to include in your teaching environment:
+      <tr>
+        <td>
+          </br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Distance
+        </td>
+        <td>
+          <input class="checkbox-option default-true" id="distance" type="checkbox" checked>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Region
+        </td>
+        <td>
+          <input class="checkbox-option default-true" id="region" type="checkbox" checked>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Colour
+        </td>
+        <td>
+          <input class="checkbox-option default-true" id="colour" type="checkbox" checked>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Photometry
+        </td>
+        <td>
+          <input class="checkbox-option default-false" id="photometry" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          3-colour
+        </td>
+        <td>
+          <input class="checkbox-option default-false" id="3-colour" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Blink
+        </td>
+        <td>
+          <input class="checkbox-option default-false" id="blink" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Header
+        </td>
+        <td>
+          <input class="checkbox-option default-false" id="header" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          </br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="btn btn-default" value="Reset" onclick="javascript:resetForm()">
+        </td>
+        <td>
+          <input class="btn btn-default" value="Create Environment" onclick="javascript:submitForm()">
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      $(':checkbox').checkboxpicker();
+
+      function resetForm()
+      {
+          $(".default-true").prop('checked', true);
+          $(".default-false").prop('checked', false);
+      }
+
+      function submitForm()
+      {
+        var temp = $(".checkbox-option");
+        // Loop through all the checkbox options
+        for ( var i=0; i<temp.length; i++ ) {
+            console.log(temp[i].id);
+            console.log(temp[i].checked);
+            // write a http post function here
+            // and on the server side, a new function to catch the URL generated for the customised page
+        };
+      }
+
+    </script>
+  </body>
+</html>
