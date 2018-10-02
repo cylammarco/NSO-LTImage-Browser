@@ -27,6 +27,12 @@ input[type="file"] {
     display: none;
 }
 
+div {
+    padding: 0px;
+    margin: 0px;
+}
+
+
 .label {
     padding-top: 5px;
     padding-bottom: 5px;
