@@ -96,7 +96,7 @@
           3-colour
         </td>
         <td>
-          <input class="checkbox-option default-false" id="3-colour" type="checkbox">
+          <input class="checkbox-option default-false" id="threecolour" type="checkbox">
         </td>
       </tr>
       <tr>
@@ -213,17 +213,16 @@
 
       $(':checkbox').checkboxpicker();
 
-      function resetForm()
-      {
-          $(".default-true").prop('checked', true);
-          $(".default-false").prop('checked', false);
+      function resetForm() {
+        $(".default-true").prop('checked', true);
+        $(".default-false").prop('checked', false);
       }
 
 
       JS9.globalOpts.mouseActions[1] = "pan the image";
       JS9.globalOpts.touchActions[1] = "pan the image";
       JS9.globalOpts.mousetouchZoom = true;
-      JS9.globalOpts.clearImageMemory = "auto";      
+      JS9.globalOpts.clearImageMemory = "auto";
       var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
 
       /* Load files on server */
@@ -233,132 +232,150 @@
         inimage: "#000000"
       };
 
-      $('#menubar').checkboxpicker().on('change', function() {
-          e = document.getElementById('JS9Menubar').parentNode;
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#menubar').checkboxpicker().on('change', function () {
+        e = document.getElementById('JS9Menubar').parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#distancetools').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('distancebox')[0];
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#distancetools').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('distancebox')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#regiontools').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('regionbox')[0];
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#regiontools').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('regionbox')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#regionstats').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('ImExamRegionStats')[0].parentNode;
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#regionstats').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamRegionStats')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#radialprofile').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('ImExamRadialProj')[0].parentNode;
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#radialprofile').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamRadialProj')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#histogram').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('ImExamHistogram')[0].parentNode;
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#histogram').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamHistogram')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#energy').checkboxpicker().on('change', function() {
-          e = document.getElementsByClassName('ImExamEncEnergy')[0].parentNode;
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#energy').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamEncEnergy')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
-      $('#3-colour').checkboxpicker().on('change', function() {
-          e = document.getElementById('JS9');
-          if(e.style.width == "600px") {
-            e.style.height = "300px";
-            e.style.width = "300px";
-            allData = JS9.GetDisplayData();
-            document.getElementsByClassName('JS9Colorbar')[0].style.display = "none";
-            for (var i = 0; i < allData.length; i++) {
-              thisimage = JS9.LookupImage(allData[i].id);
-              thisid = thisimage.id;
-              thiscolour = thisimage.cmapObj.name;
-              document.getElementById(thiscolour + 'Channel').style.display = "block";
-              JS9.MoveToDisplay(thiscolour + 'Channel', {display: thisid});
-              im = JS9.getImage(thiscolour + 'Channel').file;
-              imparams = JS9.getImage(thiscolour + 'Channel').params;
+      $('#threecolour').checkboxpicker().on('change', function () {
+        e = document.getElementById('JS9');
+        console.log(e);
+        if (e.style.width == "600px") {
+          e.style.height = "300px";
+          e.style.width = "300px";
+          allData = JS9.GetDisplayData();
+          document.getElementsByClassName('JS9Colorbar')[0].style.display = "none";
+          for (var i = 0; i < allData.length; i++) {
+            thisimage = JS9.LookupImage(allData[i].id);
+            thisid = thisimage.id;
+            thiscolour = thisimage.cmapObj.name;
+            document.getElementById(thiscolour + 'Channel').style.display = "block";
+            JS9.MoveToDisplay(thiscolour + 'Channel', {
+              display: thisid
+            });
+            im = JS9.getImage(thiscolour + 'Channel').file;
+            imparams = JS9.getImage(thiscolour + 'Channel').params;
 
-              blendopts = {
-                bias: imparams.bias,
-                colormap: thiscolour,
-                contrast: imparams.contrast,
-                display: 'JS9',
-                opacity: imparams.opacity,
-                scale: imparams.scale,
-                scaleclipping: imparams.scaleclipping,
-                scalemax: imparams.scalemax,
-                scalemin: imparams.scalemin,
-                sigma: imparams.sigma,
-                zoom: imparams.zoom,
-                zooms: imparams.zooms,
-                zscalecontrast: imparams.zscalecontrast,
-                zscaleline: imparams.zscaleline,
-                zscalesamples: imparams.zscalesamples,
-                parentFile: im,
-                onload: function (im) {
-                  JS9.BlendDisplay(true);
-                  JS9.BlendImage(true);
-                  JS9.BlendImage("screen", 0.8);
-                }
+            blendopts = {
+              bias: imparams.bias,
+              colormap: thiscolour,
+              contrast: imparams.contrast,
+              display: 'JS9',
+              opacity: imparams.opacity,
+              scale: imparams.scale,
+              scaleclipping: imparams.scaleclipping,
+              scalemax: imparams.scalemax,
+              scalemin: imparams.scalemin,
+              sigma: imparams.sigma,
+              zoom: imparams.zoom,
+              zooms: imparams.zooms,
+              zscalecontrast: imparams.zscalecontrast,
+              zscaleline: imparams.zscaleline,
+              zscalesamples: imparams.zscalesamples,
+              parentFile: im,
+              onload: function (im) {
+                JS9.BlendDisplay(true);
+                JS9.BlendImage(true);
+                JS9.BlendImage("screen", 0.8);
               }
-
-              JS9.Load(im, blendopts);
             }
-          } else {
-            e.style.height = "600px";
-            e.style.width = "600px";
-            document.getElementById('redChannel').style.display = "none";
-            document.getElementById('greenChannel').style.display = "none";
-            document.getElementById('blueChannel').style.display = "none";
-            document.getElementsByClassName('JS9Colorbar')[0].style.display = "block";
-            JS9.CloseImage({display: 'JS9'});
-            JS9.CloseImage({display: 'JS9'});
-            JS9.CloseImage({display: 'JS9'});
-            JS9.GatherDisplay("JS9");
+
+            JS9.Load(im, blendopts);
           }
+        }
+        else {
+          e.style.height = "600px";
+          e.style.width = "600px";
+          document.getElementById('redChannel').style.display = "none";
+          document.getElementById('greenChannel').style.display = "none";
+          document.getElementById('blueChannel').style.display = "none";
+          document.getElementsByClassName('JS9Colorbar')[0].style.display = "block";
+          JS9.CloseImage({
+            display: 'JS9'
+          });
+          JS9.CloseImage({
+            display: 'JS9'
+          });
+          JS9.CloseImage({
+            display: 'JS9'
+          });
+          JS9.GatherDisplay("JS9");
+        }
       });
 
-      $('#header').checkboxpicker().on('change', function() {
-          e = document.getElementById('JS9Info');
-          if(e.style.display == null || e.style.display == "none") {
-            e.style.display = "block";
-          } else {
-            e.style.display = "none";
-          }
+      $('#header').checkboxpicker().on('change', function () {
+        e = document.getElementById('JS9Info');
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
       });
 
 
@@ -367,41 +384,55 @@
         "images/h_e_20170924_43_1_1_1.jpg",
         "images/h_e_20170924_44_1_1_1.jpg"
       ];
-      var opts = [
-        {parentFile:"fits/h_e_20170924_42_1_1_1.jpg", scale:"linear", colormap:"red", zoom:"0.5"},
-        {parentFile:"fits/h_e_20170924_43_1_1_1.jpg", scale:"linear", colormap:"green", zoom:"0.5"},
-        {parentFile:"fits/h_e_20170924_44_1_1_1.jpg", scale:"linear", colormap:"blue", zoom:"0.5"}
+      var opts = [{
+          parentFile: "fits/h_e_20170924_42_1_1_1.jpg",
+          scale: "linear",
+          colormap: "red",
+          zoom: "0.5"
+        },
+        {
+          parentFile: "fits/h_e_20170924_43_1_1_1.jpg",
+          scale: "linear",
+          colormap: "green",
+          zoom: "0.5"
+        },
+        {
+          parentFile: "fits/h_e_20170924_44_1_1_1.jpg",
+          scale: "linear",
+          colormap: "blue",
+          zoom: "0.5"
+        }
       ];
-      function init(){
-          var i, s;
-          // set wcs display to degrees
-          JS9.imageOpts.wcsunits = "degrees";
-          // a loop to load all files into the display:
-          for(i=0; i<files.length; i++){
-              JS9.Preload(files[i], opts[i]);
-          }
 
-          document.getElementById('redChannel').style.display = "none";
-          document.getElementById('greenChannel').style.display = "none";
-          document.getElementById('blueChannel').style.display = "none";
-          document.getElementsByClassName('regionbox')[0].style.display = "none";
-          document.getElementsByClassName('JS9Info')[0].style.display = "none";
-          document.getElementsByClassName('ImExamRegionStats')[0].parentNode.style.display = "none";
-          document.getElementsByClassName('ImExamRadialProj')[0].parentNode.style.display = "none";
-          document.getElementsByClassName('ImExamHistogram')[0].parentNode.style.display = "none";
-          document.getElementsByClassName('ImExamEncEnergy')[0].parentNode.style.display = "none";
+      function init() {
+        var i, s;
+        // set wcs display to degrees
+        JS9.imageOpts.wcsunits = "degrees";
+        // a loop to load all files into the display:
+        for (i = 0; i < files.length; i++) {
+          JS9.Preload(files[i], opts[i]);
+        }
+
+        document.getElementById('redChannel').style.display = "none";
+        document.getElementById('greenChannel').style.display = "none";
+        document.getElementById('blueChannel').style.display = "none";
+        document.getElementsByClassName('regionbox')[0].style.display = "none";
+        document.getElementsByClassName('JS9Info')[0].style.display = "none";
+        document.getElementsByClassName('ImExamRegionStats')[0].parentNode.style.display = "none";
+        document.getElementsByClassName('ImExamRadialProj')[0].parentNode.style.display = "none";
+        document.getElementsByClassName('ImExamHistogram')[0].parentNode.style.display = "none";
+        document.getElementsByClassName('ImExamEncEnergy')[0].parentNode.style.display = "none";
 
       }
-      $(document).ready(function(){
+      $(document).ready(function () {
         init();
       });
 
-      $(".region").on('click', function(evt){
-          var s = $(evt.currentTarget).attr("id");
-          JS9.AddRegions(s);
-          return false;
+      $(".region").on('click', function (evt) {
+        var s = $(evt.currentTarget).attr("id");
+        JS9.AddRegions(s);
+        return false;
       });
-
 
 
       // Control the sliders
@@ -412,12 +443,12 @@
         blueContrastRange = document.getElementById('blueContrast'),
         blueBrightnessRange = document.getElementById('blueBrightness'),
         redContrast = parseFloat(redContrastRange.value),
-        redBrightness = parseFloat(redBrightnessRange.value);
-      greenContrast = parseFloat(greenContrastRange.value),
-        greenBrightness = parseFloat(greenBrightnessRange.value);
-      blueContrast = parseFloat(blueContrastRange.value),
+        redBrightness = parseFloat(redBrightnessRange.value),
+        greenContrast = parseFloat(greenContrastRange.value),
+        greenBrightness = parseFloat(greenBrightnessRange.value),
+        blueContrast = parseFloat(blueContrastRange.value),
         blueBrightness = parseFloat(blueBrightnessRange.value);
-      
+
       function updateContrast(e, c) {
         $(e).attr('value', c);
         var newcontrast = c / 3;
@@ -439,7 +470,7 @@
           }
         }
       }
-      
+
       function updateBrightness(e, c) {
         $(e).attr('value', c);
         var newbias = 1 - c / 100;
@@ -461,7 +492,7 @@
           }
         }
       }
-      
+
       // Listen to changes in the RGB sliders
       redContrastRange.addEventListener('input', function () {
         redContrast = parseFloat(this.value);
@@ -471,7 +502,7 @@
         redBrightness = parseFloat(this.value);
         updateBrightness(redBrightnessRange, redBrightness);
       });
-      
+
       greenContrastRange.addEventListener('input', function () {
         greenContrast = parseFloat(this.value);
         updateContrast(greenContrastRange, greenContrast);
@@ -480,7 +511,7 @@
         greenBrightness = parseFloat(this.value);
         updateBrightness(greenBrightnessRange, greenBrightness);
       });
-      
+
       blueContrastRange.addEventListener('input', function () {
         blueContrast = parseFloat(this.value);
         updateContrast(blueContrastRange, blueContrast);
@@ -499,7 +530,7 @@
           }
         }
       }
-      
+
       function zoomdisplay(s) {
         zoomlevel = JS9.getImage(s).getZoom(s);
         //console.log("Zoom: (" + zoomlevel + ")");
