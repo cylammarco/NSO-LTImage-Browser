@@ -412,7 +412,8 @@
         for (i = 0; i < files.length; i++) {
           JS9.Preload(files[i], opts[i]);
         }
-
+        document.getElementById('JS9').style.height = "600px";
+        document.getElementById('JS9').style.width = "600px";
         document.getElementById('redChannel').style.display = "none";
         document.getElementById('greenChannel').style.display = "none";
         document.getElementById('blueChannel').style.display = "none";
