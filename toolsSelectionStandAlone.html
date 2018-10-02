@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9prefs.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9support.min.js"></script>
-    <script type="text/javascript" src="javascripts/js9/js9.min.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap-checkbox/dist/js/bootstrap-checkbox.js"></script>
@@ -131,12 +131,12 @@
 
     <table>
       <tr>
-        <td><div class="JS9" id="JS9" data-width="600px" data-height="600px"></div></td>
-        <td><div class="JS9" id="redChannel" data-width="300px" data-height="300px"></div></td>
+        <td><div class="JS9" id="JS9" data-width="600px" data-height="600px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div></td>
+        <td><div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div></td>
       </tr>
       <tr>
-        <td><div class="JS9" id="greenChannel" data-width="300px" data-height="300px"></div></td>
-        <td><div class="JS9" id="blueChannel" data-width="300px" data-height="300px"></div></td>
+        <td><div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div></td>
+        <td><div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div></td>
     </tr>
     </table>
 
@@ -219,6 +219,20 @@
           $(".default-false").prop('checked', false);
       }
 
+
+      JS9.globalOpts.mouseActions[1] = "pan the image";
+      JS9.globalOpts.touchActions[1] = "pan the image";
+      JS9.globalOpts.mousetouchZoom = true;
+      JS9.globalOpts.clearImageMemory = "auto";      
+      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
+
+      /* Load files on server */
+      JS9.textColorOpts = {
+        regions: "#C7D401",
+        info: "#C7D401",
+        inimage: "#000000"
+      };
+
       $('#menubar').checkboxpicker().on('change', function() {
           e = document.getElementById('JS9Menubar').parentNode;
           if(e.style.display == null || e.style.display == "none") {
@@ -284,17 +298,45 @@
 
       $('#3-colour').checkboxpicker().on('change', function() {
           e = document.getElementById('JS9');
-          allData = JS9.GetDisplayData();
-          rgbDisplay = ['redChannel', 'greenChannel', 'blueChannel']
           if(e.style.width == "600px") {
             e.style.height = "300px";
             e.style.width = "300px";
-            document.getElementById('redChannel').style.display = "block";
-            document.getElementById('greenChannel').style.display = "block";
-            document.getElementById('blueChannel').style.display = "block";
+            allData = JS9.GetDisplayData();
             document.getElementsByClassName('JS9Colorbar')[0].style.display = "none";
             for (var i = 0; i < allData.length; i++) {
-              JS9.MoveToDisplay(rgbDisplay[i], {display: allData[i].id});
+              thisimage = JS9.LookupImage(allData[i].id);
+              thisid = thisimage.id;
+              thiscolour = thisimage.cmapObj.name;
+              document.getElementById(thiscolour + 'Channel').style.display = "block";
+              JS9.MoveToDisplay(thiscolour + 'Channel', {display: thisid});
+              im = JS9.getImage(thiscolour + 'Channel').file;
+              imparams = JS9.getImage(thiscolour + 'Channel').params;
+
+              blendopts = {
+                bias: imparams.bias,
+                colormap: thiscolour,
+                contrast: imparams.contrast,
+                display: 'JS9',
+                opacity: imparams.opacity,
+                scale: imparams.scale,
+                scaleclipping: imparams.scaleclipping,
+                scalemax: imparams.scalemax,
+                scalemin: imparams.scalemin,
+                sigma: imparams.sigma,
+                zoom: imparams.zoom,
+                zooms: imparams.zooms,
+                zscalecontrast: imparams.zscalecontrast,
+                zscaleline: imparams.zscaleline,
+                zscalesamples: imparams.zscalesamples,
+                parentFile: im,
+                onload: function (im) {
+                  JS9.BlendDisplay(true);
+                  JS9.BlendImage(true);
+                  JS9.BlendImage("screen", 0.8);
+                }
+              }
+
+              JS9.Load(im, blendopts);
             }
           } else {
             e.style.height = "600px";
@@ -303,7 +345,9 @@
             document.getElementById('greenChannel').style.display = "none";
             document.getElementById('blueChannel').style.display = "none";
             document.getElementsByClassName('JS9Colorbar')[0].style.display = "block";
-
+            JS9.CloseImage({display: 'JS9'});
+            JS9.CloseImage({display: 'JS9'});
+            JS9.CloseImage({display: 'JS9'});
             JS9.GatherDisplay("JS9");
           }
       });
@@ -319,14 +363,14 @@
 
 
       var files = [
-        "images/h_e_20180728_62_1_1_1.jpg",
-        "images/h_e_20180728_62_1_1_1.jpg",
-        "images/h_e_20180728_62_1_1_1.jpg"
+        "images/h_e_20170924_42_1_1_1.jpg",
+        "images/h_e_20170924_43_1_1_1.jpg",
+        "images/h_e_20170924_44_1_1_1.jpg"
       ];
       var opts = [
-        {parentFile:"fits/h_e_20180728_62_1_1_1.jpg", scale:"log", colormap:"red", zoom:"0.5"},
-        {parentFile:"fits/h_e_20180728_62_1_1_1.jpg", scale:"log", colormap:"green", zoom:"0.5"},
-        {parentFile:"fits/h_e_20180728_62_1_1_1.jpg", scale:"log", colormap:"blue", zoom:"0.5"}
+        {parentFile:"fits/h_e_20170924_42_1_1_1.jpg", scale:"linear", colormap:"red", zoom:"0.5"},
+        {parentFile:"fits/h_e_20170924_43_1_1_1.jpg", scale:"linear", colormap:"green", zoom:"0.5"},
+        {parentFile:"fits/h_e_20170924_44_1_1_1.jpg", scale:"linear", colormap:"blue", zoom:"0.5"}
       ];
       function init(){
           var i, s;
@@ -445,6 +489,34 @@
         blueBrightness = parseFloat(this.value);
         updateBrightness(blueBrightnessRange, blueBrightness);
       });
+
+      function pandisplay(s) {
+        panpos = JS9.getImage(s).getPan(s);
+        //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
+        for (i = 0; i < displayid.length; i++) {
+          if (displayid[i] != s) {
+            JS9.getImage(displayid[i]).setPan(panpos.x, panpos.y);
+          }
+        }
+      }
+      
+      function zoomdisplay(s) {
+        zoomlevel = JS9.getImage(s).getZoom(s);
+        //console.log("Zoom: (" + zoomlevel + ")");
+        for (i = 0; i < displayid.length; i++) {
+          if (displayid[i] != s) {
+            if (s == "JS9") {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel * 0.5);
+            }
+            else if (displayid[i] == "JS9") {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel * 2.0);
+            }
+            else {
+              JS9.getImage(displayid[i]).setZoom(zoomlevel);
+            }
+          }
+        }
+      }
 
     </script>
   </body>

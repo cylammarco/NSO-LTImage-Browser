@@ -1,14 +1,14 @@
 :root {
     --ljmu-blue: #1A3278;
     --ljmu-green: #C7D401;
-    --grey80: #CCCCCC;
+    --grey60: #999999;
     --grey15: #222222;
 }
 
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    color: white;
+    color: var(--grey60);
     background: var(--grey15);
 }
 
