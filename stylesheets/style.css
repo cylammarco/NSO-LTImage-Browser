@@ -67,11 +67,14 @@ input[type="file"] {
 #slidercontainer>.slider {
     /* Override default CSS styles */
     /* Firefox */
-    appearance: none;
+    -moz-appearance: none;
+         appearance: none;
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+        -ms-writing-mode: none;
+            writing-mode: none;
     width: var(--sliderwidth);
     /* Full-width */
     height: var(--sliderheight);
@@ -84,9 +87,15 @@ input[type="file"] {
     /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .1s;
     /* 0.2 seconds transition on hover */
+    -webkit-transition: opacity .1s;
+    -o-transition: opacity .1s;
     transition: opacity .1s;
-    transform-origin: 0px 0px;
-    transform: translate(0px, var(--sliderwidth)) rotate(270deg);
+    -webkit-transform-origin: 0px 0px;
+        -ms-transform-origin: 0px 0px;
+            transform-origin: 0px 0px;
+    -webkit-transform: translate(0px, var(--sliderwidth)) rotate(270deg);
+        -ms-transform: translate(0px, var(--sliderwidth)) rotate(270deg);
+            transform: translate(0px, var(--sliderwidth)) rotate(270deg);
     -moz-transform: translate(0px, var(--sliderwidth)) rotate(270deg);
 }
 
@@ -108,7 +117,8 @@ input[type="file"] {
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+            writing-mode: none;
     width: var(--buttonsize);
     /* Set a specific slider handle width */
     height: var(--sliderheight);
@@ -141,7 +151,7 @@ input[type="file"] {
 
 /* RGB slider */
 
-#rgbslidercontainer {
+.rgbslidercontainer {
     --sliderheight: 200px;
     --sliderwidth: 20px;
     --buttonwidth: 10px;
@@ -151,31 +161,49 @@ input[type="file"] {
 }
 
 .redBrightness {
+    background: -webkit-gradient(linear, left top, right top, from(black), color-stop(red), to(white));
+    background: -webkit-linear-gradient(left, black, red, white);
+    background: -o-linear-gradient(left, black, red, white);
     background: linear-gradient(to right, black, red, white);
     /* Red */
 }
 
 .greenBrightness {
+    background: -webkit-gradient(linear, left top, right top, from(black), color-stop(green), to(white));
+    background: -webkit-linear-gradient(left, black, green, white);
+    background: -o-linear-gradient(left, black, green, white);
     background: linear-gradient(to right, black, green, white);
     /* Green */
 }
 
 .blueBrightness {
+    background: -webkit-gradient(linear, left top, right top, from(black), color-stop(blue), to(white));
+    background: -webkit-linear-gradient(left, black, blue, white);
+    background: -o-linear-gradient(left, black, blue, white);
     background: linear-gradient(to right, black, blue, white);
     /* Blue */
 }
 
 .redContrast {
+    background: -webkit-gradient(linear, left top, right top, from(black), to(white));
+    background: -webkit-linear-gradient(left, black calc(50% - var(--red-contrast)), white calc(50% + var(--red-contrast)));
+    background: -o-linear-gradient(left, black calc(50% - var(--red-contrast)), white calc(50% + var(--red-contrast)));
     background: linear-gradient(to right, black calc(50% - var(--red-contrast)), white calc(50% + var(--red-contrast)));
     /* Red */
 }
 
 .greenContrast {
+    background: -webkit-gradient(linear, left top, right top, from(black), to(white));
+    background: -webkit-linear-gradient(left, black calc(50% - var(--green-contrast)), white calc(50% + var(--green-contrast)));
+    background: -o-linear-gradient(left, black calc(50% - var(--green-contrast)), white calc(50% + var(--green-contrast)));
     background: linear-gradient(to right, black calc(50% - var(--green-contrast)), white calc(50% + var(--green-contrast)));
     /* Green */
 }
 
 .blueContrast {
+    background: -webkit-gradient(linear, left top, right top, from(black), to(white));
+    background: -webkit-linear-gradient(left, black calc(50% - var(--blue-contrast)), white calc(50% + var(--blue-contrast)));
+    background: -o-linear-gradient(left, black calc(50% - var(--blue-contrast)), white calc(50% + var(--blue-contrast)));
     background: linear-gradient(to right, black calc(50% - var(--blue-contrast)), white calc(50% + var(--blue-contrast)));
     /* Blue */
 }
@@ -192,14 +220,17 @@ input[type="file"] {
 
 /* The slider itself */
 
-#rgbslidercontainer>.slider {
+.rgbslidercontainer>.slider {
     /* Override default CSS styles */
     /* Firefox */
-    appearance: none;
+    -moz-appearance: none;
+         appearance: none;
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+        -ms-writing-mode: none;
+            writing-mode: none;
     /* Full-width (height after rotation) */
     width: var(--sliderheight);
     /* Specified height (width after rotation) */
@@ -207,34 +238,42 @@ input[type="file"] {
     outline: none;
 }
 
-#rgbslidercontainer>.verticalslider {
+.rgbslidercontainer>.verticalslider {
     /* Override default CSS styles */
     /* Firefox */
-    appearance: none;
+    -moz-appearance: none;
+         appearance: none;
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+        -ms-writing-mode: none;
+            writing-mode: none;
     /* Full-width (height after rotation) */
     width: var(--sliderheight);
     /* Specified height (width after rotation) */
     height: var(--sliderwidth);
     outline: none;
     /* Remove outline */
-    transform-origin: 0px 10px;
-    transform: translate(0px, 190px) rotate(270deg);
+    -webkit-transform-origin: 0px 10px;
+        -ms-transform-origin: 0px 10px;
+            transform-origin: 0px 10px;
+    -webkit-transform: translate(0px, 190px) rotate(270deg);
+        -ms-transform: translate(0px, 190px) rotate(270deg);
+            transform: translate(0px, 190px) rotate(270deg);
     -moz-transform: translate(0px, 190px) rotate(270deg);
 }
 
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 
-#rgbslidercontainer>.verticalslider::-webkit-slider-thumb {
+.rgbslidercontainer>.verticalslider::-webkit-slider-thumb {
     /* Override default CSS styles */
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+            writing-mode: none;
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);
@@ -248,11 +287,11 @@ input[type="file"] {
     /* Cursor on hover */
 }
 
-#rgbslidercontainer>.verticalslider::-moz-range-track {
+.rgbslidercontainer>.verticalslider::-moz-range-track {
     background-color: transparent;
 }
 
-#rgbslidercontainer>.verticalslider::-moz-range-thumb {
+.rgbslidercontainer>.verticalslider::-moz-range-thumb {
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);
@@ -264,12 +303,13 @@ input[type="file"] {
 }
 
 
-#rgbslidercontainer>.slider::-webkit-slider-thumb {
+.rgbslidercontainer>.slider::-webkit-slider-thumb {
     /* Override default CSS styles */
     /* Chrome */
     -webkit-appearance: none;
     /* IE */
-    writing-mode: none;
+    -webkit-writing-mode: none;
+            writing-mode: none;
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);
@@ -283,11 +323,11 @@ input[type="file"] {
     /* Cursor on hover */
 }
 
-#rgbslidercontainer>.slider::-moz-range-track {
+.rgbslidercontainer>.slider::-moz-range-track {
     background-color: transparent;
 }
 
-#rgbslidercontainer>.slider::-moz-range-thumb {
+.rgbslidercontainer>.slider::-moz-range-thumb {
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);

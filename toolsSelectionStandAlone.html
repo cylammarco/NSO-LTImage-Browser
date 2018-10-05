@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9prefs.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9support.min.js"></script>
-    <script type="text/javascript" src="javascripts/js9/js9.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap-checkbox/dist/js/bootstrap-checkbox.js"></script>
@@ -149,26 +149,26 @@
 
           <tr>
             <td>
-            <div id="rgbslidercontainer" data-js9id="redChannel">
+            <div class="rgbslidercontainer" id="redBri" data-js9id="redChannel">
               <input type="range" min="0" max="100" value="50" class="slider redBrightness" id='redBrightness'></input>
             </div>
-            <div id="rgbslidercontainer" data-js9id="redChannel">
+            <div class="rgbslidercontainer" id='redCon' data-js9id="redChannel">
               <input type="range" min="0" max="100" value="50" class="slider redContrast" id='redContrast'></input>
             </div>
           </td>
           <td>
-            <div id="rgbslidercontainer" data-js9id="greenChannel">
+            <div class="rgbslidercontainer" id='greenBri' data-js9id="greenChannel">
               <input type="range" min="0" max="100" value="50" class="slider greenBrightness" id='greenBrightness'></input>
             </div>
-            <div id="rgbslidercontainer" data-js9id="greenChannel">
+            <div class="rgbslidercontainer" id='greenCon' data-js9id="greenChannel">
               <input type="range" min="0" max="100" value="50" class="slider greenContrast" id='greenContrast'></input>
             </div>
           </td>
           <td>
-            <div id="rgbslidercontainer" data-js9id="blueChannel">
+            <div class="rgbslidercontainer" id='blueBri' data-js9id="blueChannel">
               <input type="range" min="0" max="100" value="50" class="slider blueBrightness" id='blueBrightness'></input>
             </div>
-            <div id="rgbslidercontainer" data-js9id="blueChannel">
+            <div class="rgbslidercontainer" id='blueCon' data-js9id="blueChannel">
               <input type="range" min="0" max="100" value="50" class="slider blueContrast" id='blueContrast'></input>
             </div>
           </td>
@@ -204,6 +204,12 @@
 
         <tr>
           <div class="JS9Info" data-js9id="JS9" data-width="325px"></div>
+        </tr>
+
+        <tr>
+          <div id="blinkController">
+            Start and Stop Blinking -> <input class="blinkStatus" type="checkbox" data-reverse>
+          </div>
         </tr>
 
       </table>
@@ -315,6 +321,12 @@
             thisid = thisimage.id;
             thiscolour = thisimage.cmapObj.name;
             document.getElementById(thiscolour + 'Channel').style.display = "block";
+            document.getElementById('redBri').style.display = "block";
+            document.getElementById('redCon').style.display = "block";
+            document.getElementById('greenBri').style.display = "block";
+            document.getElementById('greenCon').style.display = "block";
+            document.getElementById('blueBri').style.display = "block";
+            document.getElementById('blueCon').style.display = "block";
             JS9.MoveToDisplay(thiscolour + 'Channel', {
               display: thisid
             });
@@ -354,6 +366,12 @@
           document.getElementById('redChannel').style.display = "none";
           document.getElementById('greenChannel').style.display = "none";
           document.getElementById('blueChannel').style.display = "none";
+            document.getElementById('redBri').style.display = "none";
+            document.getElementById('redCon').style.display = "none";
+            document.getElementById('greenBri').style.display = "none";
+            document.getElementById('greenCon').style.display = "none";
+            document.getElementById('blueBri').style.display = "none";
+            document.getElementById('blueCon').style.display = "none";
           document.getElementsByClassName('JS9Colorbar')[0].style.display = "block";
           JS9.CloseImage({
             display: 'JS9'
@@ -365,6 +383,16 @@
             display: 'JS9'
           });
           JS9.GatherDisplay("JS9");
+        }
+      });
+
+      $('#blink').checkboxpicker().on('change', function () {
+        e = document.getElementById('blinkController');
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
         }
       });
 
@@ -417,6 +445,13 @@
         document.getElementById('redChannel').style.display = "none";
         document.getElementById('greenChannel').style.display = "none";
         document.getElementById('blueChannel').style.display = "none";
+        document.getElementById('blinkController').style.display = "none";
+        document.getElementById('redBri').style.display = "none";
+        document.getElementById('redCon').style.display = "none";
+        document.getElementById('greenBri').style.display = "none";
+        document.getElementById('greenCon').style.display = "none";
+        document.getElementById('blueBri').style.display = "none";
+        document.getElementById('blueCon').style.display = "none";
         document.getElementsByClassName('regionbox')[0].style.display = "none";
         document.getElementsByClassName('JS9Info')[0].style.display = "none";
         document.getElementsByClassName('ImExamRegionStats')[0].parentNode.style.display = "none";
@@ -547,6 +582,37 @@
               JS9.getImage(displayid[i]).setZoom(zoomlevel);
             }
           }
+        }
+      }
+      
+      var blinkModeOn = false;
+
+      $('.blinkStatus').checkboxpicker().on('change', function () {
+        if (blinkModeOn  == false) {
+          blinkModeOn  = true;
+        } else {
+          blinkModeOn  = false;
+        }
+        blinkfunc();
+      });
+
+      var blinkfunc = function() {
+        var imlist = JS9.images;
+
+        asyncForEach(imlist, async (im) => {
+          if (blinkModeOn) { im.displayImage();}
+          await waitFor(1000);
+        }).then( function () {if (blinkModeOn) { blinkfunc(); } })
+
+      }
+
+
+      // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
+      const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+
+      async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+          await callback(array[index], index, array)
         }
       }
 
