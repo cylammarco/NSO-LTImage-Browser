@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="image/x-icon" rel="shortcut icon" href="./favicon.ico">
+    <link type="text/css" rel="stylesheet" href="javascripts/js9/js9support.css">
+    <link type="text/css" rel="stylesheet" href="javascripts/js9/js9.css">
+    <link rel="apple-touch-icon" href="images/js9-apple-touch-icon.png">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9prefs.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9support.min.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
+    <script type="text/javascript" src="javascripts/false-colour-js9-addon.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap-checkbox/dist/js/bootstrap-checkbox.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
+    <title>JS9</title>
+  </head>
+  <body>
+    <table cellpadding="10">
+      Create a false colour image from R, G & B images:
+      <tr>
+        <td>
+          </br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="btn btn-default" value="3-colour Staphen's Quintet" onclick="javascript:loadim()">
+        </td>
+      </tr>
+    </table>
+    </br>
+    <div class="JS9Menubar" id='SUPERMENU_Menubar' data-displays="*" data-width="600px"></div>
+
+    <table>
+      <tr>
+        <td><div class="JS9" id="JS9" data-width="300px" data-height="300px" style="width:600px height:600px top:0px left:0px bottom:0px right:0px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div></td>
+        <td><div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div></td>
+        <td><div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div></td>
+        <td><div class="JS9" id="bgDummy" data-width="200px" data-height="200px" style="display:none"></div></td>
+    </tr>
+    </table>
+    <!--<div class="JS9Colorbar" data-width="600px"></div>-->
+    </br>
+        <table>
+
+      <!--  Brightness & Contrast -->
+
+          <tr>
+            <td>
+              <div>
+                <label class='label red'>Load Red File<input id='redfile' type='file'></label>
+              </div>
+              <div class="rgbslidercontainer" id="redBri" data-js9id="redChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider redBrightness" id='redBrightness'></input>
+              </div>
+              <div class="rgbslidercontainer" id='redCon' data-js9id="redChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider redContrast" id='redContrast'></input>
+              </div>
+            </td>
+            <td>
+              <div>
+                <label class='label green'>Load Green File<input id='greenfile' type='file'></label>
+              </div>
+              <div class="rgbslidercontainer" id='greenBri' data-js9id="greenChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider greenBrightness" id='greenBrightness'></input>
+              </div>
+              <div class="rgbslidercontainer" id='greenCon' data-js9id="greenChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider greenContrast" id='greenContrast'></input>
+              </div>
+            </td>
+            <td>
+              <div>
+                <label class='label blue'>Load Blue File<input id='bluefile' type='file'></label>
+              </div>
+              <div class="rgbslidercontainer" id='blueBri' data-js9id="blueChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider blueBrightness" id='blueBrightness'></input>
+              </div>
+              <div class="rgbslidercontainer" id='blueCon' data-js9id="blueChannel">
+                <input type="range" min="0" max="10000" value="5000" class="slider blueContrast" id='blueContrast'></input>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="threecolour" id="redFlipBrightness">
+                Flip Red <input class="checkbox-option default-false" id="redFlipStatus" type="checkbox"></input>
+              </div>
+            </td>
+            <td>
+              <div class="threecolour" id="greenFlipBrightness">
+                Flip Green <input class="checkbox-option default-false" id="greenFlipStatus" type="checkbox"></input>
+              </div>
+            </td>
+            <td>
+              <div class="threecolour" id="blueFlipBrightness">
+                Flip Blue <input class="checkbox-option default-false" id="blueFlipStatus" type="checkbox"></input>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="threecolour" id="redBounceBrightness">
+                Bounce Red <input class="checkbox-option default-false" id="redBounceStatus" type="checkbox"></input>
+              </div>
+            </td>
+            <td>
+              <div class="threecolour" id="greenBounceBrightness">
+                Bounce Green <input class="checkbox-option default-false" id="greenBounceStatus" type="checkbox"></input>
+              </div>
+            </td>
+            <td>
+              <div class="threecolour" id="blueBounceBrightness">
+                Bounce Blue <input class="checkbox-option default-false" id="blueBounceStatus" type="checkbox"></input>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+<table>
+
+        <tr>
+          <div id='save640'>
+            <input class="btn btn-default" value="Save As PNG (640px)" onclick="javascript:mySaveIMG('PNG', 640)">
+            <input class="btn btn-default" value="Save As JPG (640px)" onclick="javascript:mySaveIMG('JPG', 640)">
+          </div>
+        </tr>
+
+        <tr>
+          <div id='save1024'>
+            <input class="btn btn-default" value="Save As PNG (1024px)" onclick="javascript:mySaveIMG('PNG', 1024)">
+            <input class="btn btn-default" value="Save As JPG (1024px)" onclick="javascript:mySaveIMG('JPG', 1024)">
+          </div>
+        </tr>
+
+        <tr>
+          <div id='save2048'>
+            <input class="btn btn-default" value="Save As PNG (2048px)" onclick="javascript:mySaveIMG('PNG', 2048)">
+            <input class="btn btn-default" value="Save As JPG (2048px)" onclick="javascript:mySaveIMG('JPG', 2048)">
+          </div>
+        </tr>
+</table>
+
+    <script type="text/javascript">
+
+      $(':checkbox').checkboxpicker();
+
+      function resetForm() {
+        $(".default-true").prop('checked', true);
+        $(".default-false").prop('checked', false);
+        JS9.CloseDisplay('JS9');
+      }
+
+      JS9.globalOpts.mouseActions[1] = "pan the image";
+      JS9.globalOpts.touchActions[1] = "pan the image";
+      JS9.globalOpts.mousetouchZoom = true;
+      JS9.globalOpts.clearImageMemory = "auto";
+      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
+      var allColour = ['red','green','blue']
+
+      var redContrastRange = document.getElementById('redContrast'),
+        redBrightnessRange = document.getElementById('redBrightness'),
+        greenContrastRange = document.getElementById('greenContrast'),
+        greenBrightnessRange = document.getElementById('greenBrightness'),
+        blueContrastRange = document.getElementById('blueContrast'),
+        blueBrightnessRange = document.getElementById('blueBrightness'),
+        redContrast = parseFloat(redContrastRange.value),
+        redBrightness = parseFloat(redBrightnessRange.value),
+        greenContrast = parseFloat(greenContrastRange.value),
+        greenBrightness = parseFloat(greenBrightnessRange.value),
+        blueContrast = parseFloat(blueContrastRange.value),
+        blueBrightness = parseFloat(blueBrightnessRange.value);
+
+      $('#redFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'red') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#greenFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'green') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#blueFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'blue') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#redBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'red') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#greenBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'green') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#blueBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'blue') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      // Listen to changes in the RGB sliders
+      redContrastRange.addEventListener('input', function () {
+        redContrast = parseFloat(this.value);
+        updateContrast(redContrastRange, redContrast);
+      });
+      redBrightnessRange.addEventListener('input', function () {
+        redBrightness = parseFloat(this.value);
+        updateBrightness(redBrightnessRange, redBrightness);
+      });
+
+      greenContrastRange.addEventListener('input', function () {
+        greenContrast = parseFloat(this.value);
+        updateContrast(greenContrastRange, greenContrast);
+      });
+      greenBrightnessRange.addEventListener('input', function () {
+        greenBrightness = parseFloat(this.value);
+        updateBrightness(greenBrightnessRange, greenBrightness);
+      });
+
+      blueContrastRange.addEventListener('input', function () {
+        blueContrast = parseFloat(this.value);
+        updateContrast(blueContrastRange, blueContrast);
+      });
+      blueBrightnessRange.addEventListener('input', function () {
+        blueBrightness = parseFloat(this.value);
+        updateBrightness(blueBrightnessRange, blueBrightness);
+      });
+
+      /* Load files on server */
+      /* This also removed all opened images by resetting the window*/
+      JS9.textColorOpts = {
+        regions: "#C7D401",
+        info: "#C7D401",
+        inimage: "#000000"
+      };
+      
+      var xdir = "images/";
+      
+      function loadim() {
+        resetForm();
+        var files = [
+          "h_e_20170924_42_1_1_1.gz",
+          "h_e_20170924_43_1_1_1.gz",
+          "h_e_20170924_44_1_1_1.gz"
+        ];
+        var opts = [{
+            parentFile: "fits/h_e_20170924_42_1_1_1.gz",
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: "red",
+            zoom: "0.5"
+          },
+          {
+            parentFile: "fits/h_e_20170924_43_1_1_1.gz",
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: "green",
+            zoom: "0.5"
+          },
+          {
+            parentFile: "fits/h_e_20170924_44_1_1_1.gz",
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: "blue",
+            zoom: "0.5"
+          }
+        ];
+
+        // set wcs display to degrees
+        JS9.imageOpts.wcsunits = "degrees";
+        // a loop to load all files into the display:
+        for (var i = 0; i < files.length; i++) {
+          var thisfilename = files[i];
+          JS9.Load(xdir + thisfilename, Object.assign({
+            onload: function (im) {
+              JS9.BlendImage(true);
+              JS9.BlendImage("screen", 1.0);
+            }
+          }, opts[i]));
+          JS9.Load(xdir + thisfilename, Object.assign({
+            display:allColour[i]+"Channel"
+          }, opts[i]));
+          JS9.Load(xdir + thisfilename, Object.assign({
+            display:"bgDummy",
+            onload: function(thisfilename) {
+              $(JS9.lookupImage(thisfilename,'bgDummy').blendImage()).prop({"active": true, "mode": "screen", "opacity": 1.0});
+            }
+          }, opts[i]));
+        }
+      }
+
+      /* Load files on local machine */
+      var inputRed = document.querySelector('#redfile');
+      var inputGreen = document.querySelector('#greenfile');
+      var inputBlue = document.querySelector('#bluefile');
+      inputRed.addEventListener('change', readURLred);
+      inputGreen.addEventListener('change', readURLgreen);
+      inputBlue.addEventListener('change', readURLblue);
+            
+      function readURLred() {
+        readURL(inputRed, 'red');
+      }
+      
+      function readURLgreen() {
+        readURL(inputGreen, 'green');
+      }
+      
+      function readURLblue() {
+        readURL(inputBlue, 'blue');
+      }
+      
+      function readURL(input, colour) {
+        imagelist = JS9.images;
+        for (var i = 0; i < imagelist.length; i++) {
+          im = imagelist[i];
+          if (im.cmapObj.name == colour) {
+            im.closeImage();
+          }
+        }
+        var inputfile = input.files[0];
+        var filename = inputfile.name;
+        opts = {
+          scale: "log",
+          scaleclipping: "zmax",
+          colormap: colour,
+          zoom: "0.5",
+          parentFile: "fits/" + filename
+        }
+        blendopts = {
+          display: 'JS9',
+          scale: "log",
+          scaleclipping: "zmax",
+          colormap: colour,
+          zoom: "0.5",
+          parentFile: "fits/" + filename,
+          onload: function (im) {
+            JS9.BlendImage(true);
+            JS9.BlendImage("screen", 1.0);
+          }
+        }
+        bgopts = {
+          display: 'bgDummy',
+          scale: "log",
+          scaleclipping: "zmax",
+          colormap: colour,
+          zoom: "0.5",
+          parentFile: "fits/" + filename,
+          onload: function (filename) {
+            $(JS9.lookupImage(filename, 'bgDummy').blendImage()).prop({"active": true, "mode": "screen", "opacity": 1.0});
+          }
+        }
+        JS9.Load(inputfile, opts, {display:colour + "Channel"});
+        JS9.Load(inputfile, blendopts, {display:"JS9"});
+        JS9.Load(inputfile, bgopts, {display:"bgDummy"});
+      }
+
+    function mySaveIMG(ftype, mysize) {
+
+      redSize = JS9.getImage('redChannel').params.image.xdim;
+      greenSize = JS9.getImage('greenChannel').params.image.xdim;
+      blueSize = JS9.getImage('blueChannel').params.image.xdim;
+      imSize = Math.max(redSize, greenSize, blueSize);
+
+      JS9.LookupDisplay('bgDummy').resize(mysize, mysize);
+      JS9.LookupDisplay('bgDummy').image.setZoom(mysize/imSize);
+      setTimeout( function() {JS9.LookupDisplay('bgDummy').image.saveIMG("3ColourImage."+ftype,ftype)}, (Math.log(mysize)-1.3)*500);
+      }
+
+      function init() {
+        var i, s;
+        // set wcs display to degrees
+        JS9.imageOpts.wcsunits = "degrees";
+        JS9.LookupDisplay('JS9').blendMode = true;
+        JS9.LookupDisplay('bgDummy').blendMode = true;
+      }
+
+      $(document).ready(function () {
+        init();
+      });
+
+    </script>
+  </body>
+</html>

@@ -14,6 +14,7 @@
     <script type="text/javascript" src="javascripts/js9/js9.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
+    <script type="text/javascript" src="javascripts/false-colour-js9-addon.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap-checkbox/dist/js/bootstrap-checkbox.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
@@ -35,6 +36,7 @@
           <input class="checkbox-option default-true" id="menubar" type="checkbox" checked>
         </td>
       </tr>
+      <!--
       <tr>
         <td>
           Finder Viewer
@@ -43,12 +45,13 @@
           <input class="checkbox-option default-true" id="finderviewer" type="checkbox" checked>
         </td>
       </tr>
+    -->
       <tr>
         <td>
           Distance
         </td>
         <td>
-          <input class="checkbox-option default-false" id="distancetools" type="checkbox" checked>
+          <input class="checkbox-option default-false" id="distancetools" type="checkbox">
         </td>
       </tr>
       <tr>
@@ -93,22 +96,6 @@
       </tr>
       <tr>
         <td>
-          Colour
-        </td>
-        <td>
-          <input class="checkbox-option default-false" id="colour" type="checkbox">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          3-colour
-        </td>
-        <td>
-          <input class="checkbox-option default-false" id="threecolour" type="checkbox">
-        </td>
-      </tr>
-      <tr>
-        <td>
           Blink
         </td>
         <td>
@@ -130,7 +117,9 @@
       </tr>
       <tr>
         <td>
-          <input class="btn btn-default" value="3-colour Staphen's Quintet" onclick="javascript:loadim()">
+          <input class="btn btn-default" value="Load RGB Staphen's Quintet in grey" onclick="javascript:loadim()">
+        </td>
+        <td>
           <input class="btn btn-default" value="Reset" onclick="javascript:resetForm()">
         </td>
       </tr>
@@ -141,97 +130,22 @@
     <table>
       <tr>
         <td><div class="JS9" id="JS9" data-width="600px" data-height="600px" style="width:600px height:600px top:0px left:0px bottom:0px right:0px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div></td>
-        <td><div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel')" onwheel="javascript:zoomdisplay('redChannel')"></div></td>
-<!--
-<td><div class="JS9Panner" id="JS9"></div></td>
-<td><div class="JS9Panner" id="redChannel"></div></td>
-<td><div class="JS9Panner" id="greenChannel"></div></td>
-<td><div class="JS9Panner" id="blueChannel"></div></td>
--->
       </tr>
-
-      <tr>
-        <td><div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel')"></div></td>
-        <td><div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel')"></div></td>
-    </tr>
     </table>
-    <div class="JS9Colorbar" data-width="600px"></div>
-</br>
-<table>
+    <!--<div class="JS9Colorbar" data-width="600px"></div>-->
+    </br>
+        <table>
 
       <!--  Brightness & Contrast -->
 
           <tr>
             <td>
-            <div>
-              <label class='label red'>Load Red File<input id='redfile' type='file'></label>
-            </div>
-            <div class="rgbslidercontainer" id="redBri" data-js9id="redChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider redBrightness" id='redBrightness'></input>
-            </div>
-            <div class="rgbslidercontainer" id='redCon' data-js9id="redChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider redContrast" id='redContrast'></input>
-            </div>
-          </td>
-          <td>
-            <div>
-              <label class='label green'>Load Green File<input id='greenfile' type='file'></label>
-            </div>
-            <div class="rgbslidercontainer" id='greenBri' data-js9id="greenChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider greenBrightness" id='greenBrightness'></input>
-            </div>
-            <div class="rgbslidercontainer" id='greenCon' data-js9id="greenChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider greenContrast" id='greenContrast'></input>
-            </div>
-          </td>
-          <td>
-            <div>
-              <label class='label blue'>Load Blue File<input id='bluefile' type='file'></label>
-            </div>
-            <div class="rgbslidercontainer" id='blueBri' data-js9id="blueChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider blueBrightness" id='blueBrightness'></input>
-            </div>
-            <div class="rgbslidercontainer" id='blueCon' data-js9id="blueChannel">
-              <input type="range" min="0" max="10000" value="5000" class="slider blueContrast" id='blueContrast'></input>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="threecolour" id="redFlipBrightness">
-              Flip Red <input class="checkbox-option default-false" id="redFlipStatus" type="checkbox"></input>
-            </div>
-          </td>
-          <td>
-            <div class="threecolour" id="greenFlipBrightness">
-              Flip Green <input class="checkbox-option default-false" id="greenFlipStatus" type="checkbox"></input>
-            </div>
-          </td>
-          <td>
-            <div class="threecolour" id="blueFlipBrightness">
-              Flip Blue <input class="checkbox-option default-false" id="blueFlipStatus" type="checkbox"></input>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="threecolour" id="redBounceBrightness">
-              Bounce Red <input class="checkbox-option default-false" id="redBounceStatus" type="checkbox"></input>
-            </div>
-          </td>
-          <td>
-            <div class="threecolour" id="greenBounceBrightness">
-              Bounce Green <input class="checkbox-option default-false" id="greenBounceStatus" type="checkbox"></input>
-            </div>
-          </td>
-          <td>
-            <div class="threecolour" id="blueBounceBrightness">
-              Bounce Blue <input class="checkbox-option default-false" id="blueBounceStatus" type="checkbox"></input>
-            </div>
-          </td>
-        </tr>
-
-</table>
+              <div>
+                <label class='label file'>Load File<input id='inputfile' type='file'></label>
+              </div>
+            </td>
+          </tr>
+        </table>
 
     <div class="ImexamContainer">
 
@@ -258,7 +172,10 @@
           <td><div class="ImExamHistogram" data-js9id="JS9"></div></td>
           <td><div class="ImExamEncEnergy" data-js9id="JS9"></div></td>
         </tr>
+      </table>
+    </div>
 
+<table>
         <tr>
           <div class="JS9Info" data-js9id="JS9" data-width="325px"></div>
         </tr>
@@ -269,9 +186,27 @@
           </div>
         </tr>
 
-      </table>
+        <tr>
+          <div id='save640'>
+            <input class="btn btn-default" value="Save As PNG (640px)" onclick="javascript:mySaveIMG('PNG', 640)">
+            <input class="btn btn-default" value="Save As JPG (640px)" onclick="javascript:mySaveIMG('JPG', 640)">
+          </div>
+        </tr>
 
-    </div>
+        <tr>
+          <div id='save1024'>
+            <input class="btn btn-default" value="Save As PNG (1024px)" onclick="javascript:mySaveIMG('PNG', 1024)">
+            <input class="btn btn-default" value="Save As JPG (1024px)" onclick="javascript:mySaveIMG('JPG', 1024)">
+          </div>
+        </tr>
+
+        <tr>
+          <div id='save2048'>
+            <input class="btn btn-default" value="Save As PNG (2048px)" onclick="javascript:mySaveIMG('PNG', 2048)">
+            <input class="btn btn-default" value="Save As JPG (2048px)" onclick="javascript:mySaveIMG('JPG', 2048)">
+          </div>
+        </tr>
+</table>
 
     <script type="text/javascript">
 
@@ -283,13 +218,10 @@
         JS9.CloseDisplay('JS9');
       }
 
-
       JS9.globalOpts.mouseActions[1] = "pan the image";
       JS9.globalOpts.touchActions[1] = "pan the image";
       JS9.globalOpts.mousetouchZoom = true;
       JS9.globalOpts.clearImageMemory = "auto";
-      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
-
 
       $('#menubar').checkboxpicker().on('change', function () {
         e = document.getElementsByClassName('JS9Menubar')[0];
@@ -300,7 +232,7 @@
           e.style.display = "none";
         }
       });
-
+/*
       $('#finderviewer').checkboxpicker().on('change', function () {
         e = document.getElementsByClassName('finderwindow')[0];
         if (e.style.display == null || e.style.display == "none") {
@@ -310,7 +242,7 @@
           e.style.display = "none";
         }
       });
-
+*/
       $('#distancetools').checkboxpicker().on('change', function () {
         e = document.getElementsByClassName('distancebox')[0];
         if (e.style.display == null || e.style.display == "none") {
@@ -371,86 +303,6 @@
         }
       });
 
-      $('#threecolour').checkboxpicker().on('change', function () {
-        e = document.getElementById('JS9');
-        if (e.style.width == "600px") {
-          e.style.height = "300px";
-          e.style.width = "300px";
-          allData = JS9.GetDisplayData();
-          document.getElementsByClassName('JS9Colorbar')[0].style.display = "none";
-          for (var i = 0; i < allData.length; i++) {
-            thisimage = JS9.LookupImage(allData[i].id);
-            thisid = thisimage.id;
-            thiscolour = thisimage.cmapObj.name;
-            document.getElementById(thiscolour + 'Channel').style.display = "block";
-            document.getElementById('redBri').style.display = "block";
-            document.getElementById('redCon').style.display = "block";
-            document.getElementById('greenBri').style.display = "block";
-            document.getElementById('greenCon').style.display = "block";
-            document.getElementById('blueBri').style.display = "block";
-            document.getElementById('blueCon').style.display = "block";
-            document.getElementById('redFlipBrightness').style.display = "block";
-            document.getElementById('greenFlipBrightness').style.display = "block";
-            document.getElementById('blueFlipBrightness').style.display = "block";
-            document.getElementById('redBounceBrightness').style.display = "block";
-            document.getElementById('greenBounceBrightness').style.display = "block";
-            document.getElementById('blueBounceBrightness').style.display = "block";
-            JS9.MoveToDisplay(thiscolour + 'Channel', {
-              display: thisid
-            });
-            im = JS9.getImage(thiscolour + 'Channel').file;
-            imparams = JS9.getImage(thiscolour + 'Channel').params;
-
-            blendopts = {
-              bias: imparams.bias,
-              colormap: thiscolour,
-              contrast: imparams.contrast,
-              display: 'JS9',
-              opacity: imparams.opacity,
-              scale: imparams.scale,
-              scaleclipping: imparams.scaleclipping,
-              scalemax: imparams.scalemax,
-              scalemin: imparams.scalemin,
-              sigma: imparams.sigma,
-              zoom: imparams.zoom,
-              zooms: imparams.zooms,
-              zscalecontrast: imparams.zscalecontrast,
-              zscaleline: imparams.zscaleline,
-              zscalesamples: imparams.zscalesamples,
-              parentFile: im,
-              onload: function (im) {
-                JS9.BlendDisplay(true);
-                JS9.BlendImage(true);
-                JS9.BlendImage("screen", 0.8);
-              }
-            }
-
-            JS9.Load(im, blendopts);
-          }
-        }
-        else {
-          e.style.height = "600px";
-          e.style.width = "600px";
-          document.getElementById('redChannel').style.display = "none";
-          document.getElementById('greenChannel').style.display = "none";
-          document.getElementById('blueChannel').style.display = "none";
-          document.getElementById('redBri').style.display = "none";
-          document.getElementById('redCon').style.display = "none";
-          document.getElementById('greenBri').style.display = "none";
-          document.getElementById('greenCon').style.display = "none";
-          document.getElementById('blueBri').style.display = "none";
-          document.getElementById('blueCon').style.display = "none";
-          document.getElementById('redFlipBrightness').style.display = "none";
-          document.getElementById('greenFlipBrightness').style.display = "none";
-          document.getElementById('blueFlipBrightness').style.display = "none";
-          document.getElementById('redBounceBrightness').style.display = "none";
-          document.getElementById('greenBounceBrightness').style.display = "none";
-          document.getElementById('blueBounceBrightness').style.display = "none";
-          document.getElementsByClassName('JS9Colorbar')[0].style.display = "block";
-          JS9.CloseDisplay('JS9');
-          JS9.GatherDisplay("JS9");
-        }
-      });
 
       $('#blink').checkboxpicker().on('change', function () {
         e = document.getElementById('blinkController');
@@ -478,24 +330,11 @@
         // set wcs display to degrees
         JS9.imageOpts.wcsunits = "degrees";
         // a loop to load all files into the display:
-        document.getElementById('JS9').style.height = "600px";
-        document.getElementById('JS9').style.width = "600px";
-        document.getElementById('redChannel').style.display = "none";
-        document.getElementById('greenChannel').style.display = "none";
-        document.getElementById('blueChannel').style.display = "none";
         document.getElementById('blinkController').style.display = "none";
-        document.getElementById('redBri').style.display = "none";
-        document.getElementById('redCon').style.display = "none";
-        document.getElementById('greenBri').style.display = "none";
-        document.getElementById('greenCon').style.display = "none";
-        document.getElementById('blueBri').style.display = "none";
-        document.getElementById('blueCon').style.display = "none";
-        document.getElementById('redFlipBrightness').style.display = "none";
-        document.getElementById('greenFlipBrightness').style.display = "none";
-        document.getElementById('blueFlipBrightness').style.display = "none";
-        document.getElementById('redBounceBrightness').style.display = "none";
-        document.getElementById('greenBounceBrightness').style.display = "none";
-        document.getElementById('blueBounceBrightness').style.display = "none";
+        document.getElementById('save640').style.display = "none";
+        document.getElementById('save1024').style.display = "none";
+        document.getElementById('save2048').style.display = "none";
+        document.getElementsByClassName('distancebox')[0].style.display = "none";
         document.getElementsByClassName('regionbox')[0].style.display = "none";
         document.getElementsByClassName('JS9Info')[0].style.display = "none";
         document.getElementsByClassName('ImExamRegionStats')[0].parentNode.style.display = "none";
@@ -514,214 +353,6 @@
         return false;
       });
 
-
-      // Control the sliders
-      var redContrastRange = document.getElementById('redContrast'),
-        redBrightnessRange = document.getElementById('redBrightness'),
-        greenContrastRange = document.getElementById('greenContrast'),
-        greenBrightnessRange = document.getElementById('greenBrightness'),
-        blueContrastRange = document.getElementById('blueContrast'),
-        blueBrightnessRange = document.getElementById('blueBrightness'),
-        redContrast = parseFloat(redContrastRange.value),
-        redBrightness = parseFloat(redBrightnessRange.value),
-        greenContrast = parseFloat(greenContrastRange.value),
-        greenBrightness = parseFloat(greenBrightnessRange.value),
-        blueContrast = parseFloat(blueContrastRange.value),
-        blueBrightness = parseFloat(blueBrightnessRange.value);
-
-      function updateContrast(e, c) {
-        $(e).attr('value', c);
-        var newcontrast = 10. - (10000. - c) / 1000.;
-        var colourmap;
-        if (e.id == 'redContrast') {
-          colourmap = 'red';
-        }
-        else if (e.id == 'greenContrast') {
-          colourmap = 'green';
-        }
-        else if (e.id == 'blueContrast') {
-          colourmap = 'blue';
-        }
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == colourmap) {
-            if (newcontrast < 0.) {
-              image_list[i].params.invert = true;
-              newcontrast = newcontrast + 10.;
-            } else {
-              image_list[i].params.invert = false;
-            }
-            image_list[i].params.contrast = newcontrast;
-            image_list[i].displayImage('all');
-          }
-        }
-      }
-
-      function updateBrightness(e, c) {
-        $(e).attr('value', c);
-        var newbias = 1. - c / 10000.;
-        var imageid;
-        if (e.id == 'redBrightness') {
-          colourmap = 'red';
-        }
-        else if (e.id == 'greenBrightness') {
-          colourmap = 'green';
-        }
-        else if (e.id == 'blueBrightness') {
-          colourmap = 'blue';
-        }
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == colourmap) {
-            image_list[i].params.bias = newbias;
-            image_list[i].displayImage('all');
-          }
-        }
-      }
-
-      $('#redFlipStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'red') {
-            var invertStatus = image_list[i].params.invert;
-            if (invertStatus == false) {
-              image_list[i].params.invert = true;
-            } else {
-              image_list[i].params.invert = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      $('#greenFlipStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'green') {
-            var invertStatus = image_list[i].params.invert;
-            if (invertStatus == false) {
-              image_list[i].params.invert = true;
-            } else {
-              image_list[i].params.invert = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      $('#blueFlipStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'blue') {
-            var invertStatus = image_list[i].params.invert;
-            if (invertStatus == false) {
-              image_list[i].params.invert = true;
-            } else {
-              image_list[i].params.invert = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      $('#redBounceStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'red') {
-            if (image_list[i].params.bounce == false) {
-              image_list[i].params.bounce = true;
-            } else {
-              image_list[i].params.bounce = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      $('#greenBounceStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'green') {
-            if (image_list[i].params.bounce == false) {
-              image_list[i].params.bounce = true;
-            } else {
-              image_list[i].params.bounce = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      $('#blueBounceStatus').checkboxpicker().on('change', function () {
-        var image_list = JS9.images;
-        for (i = 0; i < image_list.length; i++) {
-          if (image_list[i].params.colormap == 'blue') {
-            if (image_list[i].params.bounce == false) {
-              image_list[i].params.bounce = true;
-            } else {
-              image_list[i].params.bounce = false;
-            }
-            image_list[i].displayImage('all');
-          }
-        }
-      });
-
-      // Listen to changes in the RGB sliders
-      redContrastRange.addEventListener('input', function () {
-        redContrast = parseFloat(this.value);
-        updateContrast(redContrastRange, redContrast);
-      });
-      redBrightnessRange.addEventListener('input', function () {
-        redBrightness = parseFloat(this.value);
-        updateBrightness(redBrightnessRange, redBrightness);
-      });
-
-      greenContrastRange.addEventListener('input', function () {
-        greenContrast = parseFloat(this.value);
-        updateContrast(greenContrastRange, greenContrast);
-      });
-      greenBrightnessRange.addEventListener('input', function () {
-        greenBrightness = parseFloat(this.value);
-        updateBrightness(greenBrightnessRange, greenBrightness);
-      });
-
-      blueContrastRange.addEventListener('input', function () {
-        blueContrast = parseFloat(this.value);
-        updateContrast(blueContrastRange, blueContrast);
-      });
-      blueBrightnessRange.addEventListener('input', function () {
-        blueBrightness = parseFloat(this.value);
-        updateBrightness(blueBrightnessRange, blueBrightness);
-      });
-
-      function pandisplay(s) {
-        panpos = JS9.getImage(s).getPan(s);
-        //console.log("Pan position: (" + panpos.x + ", " + panpos.y + ")");
-        for (i = 0; i < displayid.length; i++) {
-          if (displayid[i] != s) {
-            JS9.getImage(displayid[i]).setPan(panpos.x, panpos.y);
-          }
-        }
-      }
-
-      function zoomdisplay(s) {
-        zoomlevel = JS9.getImage(s).getZoom(s);
-        //console.log("Zoom: (" + zoomlevel + ")");
-        for (i = 0; i < displayid.length; i++) {
-          if (displayid[i] != s) {
-            if (s == "JS9") {
-              JS9.getImage(displayid[i]).setZoom(zoomlevel * 0.5);
-            }
-            else if (displayid[i] == "JS9") {
-              JS9.getImage(displayid[i]).setZoom(zoomlevel * 2.0);
-            }
-            else {
-              JS9.getImage(displayid[i]).setZoom(zoomlevel);
-            }
-          }
-        }
-      }
-      
       var blinkModeOn = false;
 
       $('.blinkStatus').checkboxpicker().on('change', function () {
@@ -743,7 +374,6 @@
 
       }
 
-
       // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
       const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -753,44 +383,34 @@
         }
       }
 
-
-      /* Load files on server */
-      /* This also removed all opened images by resetting the window*/
-      JS9.textColorOpts = {
-        regions: "#C7D401",
-        info: "#C7D401",
-        inimage: "#000000"
-      };
-      
       var xdir = "images/";
-      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
-      
+
       function loadim() {
         resetForm();
         var files = [
-          "images/h_e_20170924_42_1_1_1.gz",
-          "images/h_e_20170924_43_1_1_1.gz",
-          "images/h_e_20170924_44_1_1_1.gz"
+          "h_e_20170924_42_1_1_1.gz",
+          "h_e_20170924_43_1_1_1.gz",
+          "h_e_20170924_44_1_1_1.gz"
         ];
         var opts = [{
             parentFile: "fits/h_e_20170924_42_1_1_1.gz",
             scale: "log",
             scaleclipping: "zmax",
-            colormap: "red",
+            colormap: "grey",
             zoom: "0.5"
           },
           {
             parentFile: "fits/h_e_20170924_43_1_1_1.gz",
             scale: "log",
             scaleclipping: "zmax",
-            colormap: "green",
+            colormap: "grey",
             zoom: "0.5"
           },
           {
             parentFile: "fits/h_e_20170924_44_1_1_1.gz",
             scale: "log",
             scaleclipping: "zmax",
-            colormap: "blue",
+            colormap: "grey",
             zoom: "0.5"
           }
         ];
@@ -799,38 +419,20 @@
         JS9.imageOpts.wcsunits = "degrees";
         // a loop to load all files into the display:
         for (var i = 0; i < files.length; i++) {
-          JS9.Load(files[i], opts[i]);
+          var thisfilename = files[i];
+          JS9.Load(xdir + thisfilename, opts[i]);
         }
       }
 
       /* Load files on local machine */
-      var inputRed = document.querySelector('#redfile');
-      var inputGreen = document.querySelector('#greenfile');
-      var inputBlue = document.querySelector('#bluefile');
-      inputRed.addEventListener('change', readURLred);
-      inputGreen.addEventListener('change', readURLgreen);
-      inputBlue.addEventListener('change', readURLblue);
+      var inputfile = document.querySelector('#inputfile');
+      inputfile.addEventListener('change', readURLfile);
       
-      function readURLred() {
-        readURL(inputRed, 'red');
-      }
-      
-      function readURLgreen() {
-        readURL(inputGreen, 'green');
-      }
-      
-      function readURLblue() {
-        readURL(inputBlue, 'blue');
+      function readURLfile() {
+        readURL(inputfile, 'grey');
       }
       
       function readURL(input, colour) {
-        imagelist = JS9.images;
-        for (var i = 0; i < imagelist.length; i++) {
-          im = imagelist[i];
-          if (im.cmapObj.name == colour) {
-            im.closeImage();
-          }
-        }
         var inputfile = input.files[0];
         opts = {
           scale: "log",
@@ -839,21 +441,7 @@
           zoom: "0.5",
           parentFile: "fits/" + inputfile.name
         }
-        blendopts = {
-          display: 'JS9',
-          scale: "log",
-          scaleclipping: "zmax",
-          colormap: colour,
-          zoom: "0.5",
-          parentFile: "fits/" + inputfile.name,
-          onload: function (im) {
-            JS9.BlendDisplay(true);
-            JS9.BlendImage(true);
-            JS9.BlendImage("screen", 0.8);
-          }
-        }
-        JS9.Load(inputfile, opts, {display:colour + "Channel"});
-        JS9.Load(inputfile, blendopts, {display:"JS9"});
+        JS9.Load(inputfile, opts);
       }
 
     </script>
