@@ -21,24 +21,30 @@
     <title>JS9</title>
   </head>
   <body>
-      Create a false colour image from a single image:
+    Create a false colour image from a single image:
     <table>
       <tr>
-        <td><div class="JS9" id="JS9" data-width="300px" data-height="300px" onclick="javascript:pandisplay('JS9', displayid)" onwheel="javascript:zoomdisplay('JS9', displayid)"></div></td>
-        <td><div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel', displayid)" onwheel="javascript:zoomdisplay('redChannel', displayid)"></div></td>
+        <td>
+          <div class="JS9" id="JS9" data-width="300px" data-height="300px" onclick="javascript:pandisplay('JS9', displayid)" onwheel="javascript:zoomdisplay('JS9', displayid)"></div>
+        </td>
+        <td>
+          <div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel', displayid)" onwheel="javascript:zoomdisplay('redChannel', displayid)"></div>
+        </td>
       </tr>
-
       <tr>
-        <td><div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel', displayid)"></div></td>
-        <td><div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel', displayid)"></div></td>
-        <td><div class="JS9" id="bgDummy" data-width="200px" data-height="200px" style="display:none"></div></td>
-    </tr>
+        <td>
+          <div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel', displayid)"></div>
+        </td>
+        <td>
+          <div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel', displayid)"></div>
+        </td>
+        <td>
+          <div class="JS9" id="bgDummy" data-width="200px" data-height="200px" style="display:none"></div>
+        </td>
+      </tr>
     </table>
-
     <table>
-
-  <!--  Brightness & Contrast -->
-
+      <!--  Brightness & Contrast -->
       <tr>
       <tr>
         <td>
@@ -47,31 +53,31 @@
           </div>
         </td>
       </tr>
-        <br>
-        <td>
-          <div class="rgbslidercontainer" id="redBri" data-js9id="redChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider redBrightness" id='redBrightness'></input>
-          </div>
-          <div class="rgbslidercontainer" id='redCon' data-js9id="redChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider redContrast" id='redContrast'></input>
-          </div>
-        </td>
-        <td>
-          <div class="rgbslidercontainer" id='greenBri' data-js9id="greenChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider greenBrightness" id='greenBrightness'></input>
-          </div>
-          <div class="rgbslidercontainer" id='greenCon' data-js9id="greenChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider greenContrast" id='greenContrast'></input>
-          </div>
-        </td>
-        <td>
-          <div class="rgbslidercontainer" id='blueBri' data-js9id="blueChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider blueBrightness" id='blueBrightness'></input>
-          </div>
-          <div class="rgbslidercontainer" id='blueCon' data-js9id="blueChannel">
-            <input type="range" min="0" max="10000" value="5000" class="slider blueContrast" id='blueContrast'></input>
-          </div>
-        </td>
+      <br>
+      <td>
+        <div class="rgbslidercontainer" id="redBri" data-js9id="redChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider redBrightness" id='redBrightness'></input>
+        </div>
+        <div class="rgbslidercontainer" id='redCon' data-js9id="redChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider redContrast" id='redContrast'></input>
+        </div>
+      </td>
+      <td>
+        <div class="rgbslidercontainer" id='greenBri' data-js9id="greenChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider greenBrightness" id='greenBrightness'></input>
+        </div>
+        <div class="rgbslidercontainer" id='greenCon' data-js9id="greenChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider greenContrast" id='greenContrast'></input>
+        </div>
+      </td>
+      <td>
+        <div class="rgbslidercontainer" id='blueBri' data-js9id="blueChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider blueBrightness" id='blueBrightness'></input>
+        </div>
+        <div class="rgbslidercontainer" id='blueCon' data-js9id="blueChannel">
+          <input type="range" min="0" max="10000" value="5000" class="slider blueContrast" id='blueContrast'></input>
+        </div>
+      </td>
       </tr>
       <tr>
         <td>
@@ -108,7 +114,6 @@
         </td>
       </tr>
     </table>
-
     <table>
       <tr>
         <div id='save640'>
@@ -116,14 +121,12 @@
           <input class="btn btn-default" value="Save As JPG (640px)" onclick="javascript:mySaveIMG('JPG',640)">
         </div>
       </tr>
-
       <tr>
         <div id='save1024'>
           <input class="btn btn-default" value="Save As PNG (1024px)" onclick="javascript:mySaveIMG('PNG',1024)">
           <input class="btn btn-default" value="Save As JPG (1024px)" onclick="javascript:mySaveIMG('JPG',1024)">
         </div>
       </tr>
-
       <tr>
         <div id='save2048'>
           <input class="btn btn-default" value="Save As PNG (2048px)" onclick="javascript:mySaveIMG('PNG',2048)">
@@ -131,213 +134,223 @@
         </div>
       </tr>
     </table>
+    <script type="text/javascript">
 
-  <script type="text/javascript">
+      $(':checkbox').checkboxpicker();
 
-    $(':checkbox').checkboxpicker();
+      JS9.globalOpts.mouseActions[1] = "pan the image";
+      JS9.globalOpts.touchActions[1] = "pan the image";
+      JS9.globalOpts.mousetouchZoom = true;
+      var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
+      var allColour = ['red', 'green', 'blue']
+      var inputFile = document.querySelector('#inputFile');
+      inputFile.addEventListener('change', readURL);
 
-    JS9.globalOpts.mouseActions[1] = "pan the image";
-    JS9.globalOpts.touchActions[1] = "pan the image";
-    JS9.globalOpts.mousetouchZoom = true;
-    var displayid = ['JS9', 'redChannel', 'greenChannel', 'blueChannel'];
-    var allColour = ['red','green','blue']
-    var inputFile = document.querySelector('#inputFile');
-    inputFile.addEventListener('change', readURL);
+      var redContrastRange = document.getElementById('redContrast'),
+        redBrightnessRange = document.getElementById('redBrightness'),
+        greenContrastRange = document.getElementById('greenContrast'),
+        greenBrightnessRange = document.getElementById('greenBrightness'),
+        blueContrastRange = document.getElementById('blueContrast'),
+        blueBrightnessRange = document.getElementById('blueBrightness'),
+        redContrast = parseFloat(redContrastRange.value),
+        redBrightness = parseFloat(redBrightnessRange.value),
+        greenContrast = parseFloat(greenContrastRange.value),
+        greenBrightness = parseFloat(greenBrightnessRange.value),
+        blueContrast = parseFloat(blueContrastRange.value),
+        blueBrightness = parseFloat(blueBrightnessRange.value);
 
-    var redContrastRange = document.getElementById('redContrast'),
-      redBrightnessRange = document.getElementById('redBrightness'),
-      greenContrastRange = document.getElementById('greenContrast'),
-      greenBrightnessRange = document.getElementById('greenBrightness'),
-      blueContrastRange = document.getElementById('blueContrast'),
-      blueBrightnessRange = document.getElementById('blueBrightness'),
-      redContrast = parseFloat(redContrastRange.value),
-      redBrightness = parseFloat(redBrightnessRange.value),
-      greenContrast = parseFloat(greenContrastRange.value),
-      greenBrightness = parseFloat(greenBrightnessRange.value),
-      blueContrast = parseFloat(blueContrastRange.value),
-      blueBrightness = parseFloat(blueBrightnessRange.value);
-
-    $('#redFlipStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'red') {
-          var invertStatus = image_list[i].params.invert;
-          if (invertStatus == false) {
-            image_list[i].params.invert = true;
-          } else {
-            image_list[i].params.invert = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    $('#greenFlipStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'green') {
-          var invertStatus = image_list[i].params.invert;
-          if (invertStatus == false) {
-            image_list[i].params.invert = true;
-          } else {
-            image_list[i].params.invert = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    $('#blueFlipStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'blue') {
-          var invertStatus = image_list[i].params.invert;
-          if (invertStatus == false) {
-            image_list[i].params.invert = true;
-          } else {
-            image_list[i].params.invert = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    $('#redBounceStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'red') {
-          if (image_list[i].params.bounce == false) {
-            image_list[i].params.bounce = true;
-          } else {
-            image_list[i].params.bounce = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    $('#greenBounceStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'green') {
-          if (image_list[i].params.bounce == false) {
-            image_list[i].params.bounce = true;
-          } else {
-            image_list[i].params.bounce = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    $('#blueBounceStatus').checkboxpicker().on('change', function () {
-      var image_list = JS9.images;
-      for (i = 0; i < image_list.length; i++) {
-        if (image_list[i].params.colormap == 'blue') {
-          if (image_list[i].params.bounce == false) {
-            image_list[i].params.bounce = true;
-          } else {
-            image_list[i].params.bounce = false;
-          }
-          image_list[i].displayImage('all');
-        }
-      }
-    });
-
-    // Listen to changes in the RGB sliders
-    redContrastRange.addEventListener('input', function () {
-      redContrast = parseFloat(this.value);
-      updateContrast(redContrastRange, redContrast);
-    });
-    redBrightnessRange.addEventListener('input', function () {
-      redBrightness = parseFloat(this.value);
-      updateBrightness(redBrightnessRange, redBrightness);
-    });
-
-    greenContrastRange.addEventListener('input', function () {
-      greenContrast = parseFloat(this.value);
-      updateContrast(greenContrastRange, greenContrast);
-    });
-    greenBrightnessRange.addEventListener('input', function () {
-      greenBrightness = parseFloat(this.value);
-      updateBrightness(greenBrightnessRange, greenBrightness);
-    });
-
-    blueContrastRange.addEventListener('input', function () {
-      blueContrast = parseFloat(this.value);
-      updateContrast(blueContrastRange, blueContrast);
-    });
-    blueBrightnessRange.addEventListener('input', function () {
-      blueBrightness = parseFloat(this.value);
-      updateBrightness(blueBrightnessRange, blueBrightness);
-    });
-
-
-    function readURL() {
-      for (var i = 0; i < 3; i++) {
-        var colour = allColour[i];
-        var inputfile = inputFile.files[0];
-        var filename = inputfile.name;
-        var fileid = inputfile.name;
-        if (i == 1) {
-          fileid += '<2>';
-        } else if (i == 2) {
-          fileid += '<3>';
-        }
-        console.log(fileid);
-        opts = {
-          scale: "log",
-          scaleclipping: "zmax",
-          colormap: colour,
-          zoom: "0.5",
-          parentFile: "fits/" + filename
-        }
-        blendopts = {
-          display: 'JS9',
-          scale: "log",
-          scaleclipping: "zmax",
-          colormap: colour,
-          zoom: "0.5",
-          parentFile: "fits/" + filename,
-          onload: function () {
-            JS9.BlendImage(true);
-            JS9.BlendImage("screen", 1.0);
+      $('#redFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'red') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
           }
         }
-        bgopts = {
-          display: 'bgDummy',
-          scale: "log",
-          scaleclipping: "zmax",
-          colormap: colour,
-          zoom: "0.5",
-          parentFile: "fits/" + filename,
-          onload: function (fileid) {
-            $(JS9.lookupImage(fileid, 'bgDummy').blendImage()).prop({"active": true, "mode": "screen", "opacity": 1.0});
+      });
+
+      $('#greenFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'green') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
           }
         }
-        JS9.Load(inputfile, opts, {display:colour + "Channel"});
-        JS9.Load(inputfile, blendopts, {display:"JS9"});
-        JS9.Load(inputfile, bgopts, {display:"bgDummy"});
+      });
+
+      $('#blueFlipStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'blue') {
+            var invertStatus = image_list[i].params.invert;
+            if (invertStatus == false) {
+              image_list[i].params.invert = true;
+            } else {
+              image_list[i].params.invert = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#redBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'red') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#greenBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'green') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      $('#blueBounceStatus').checkboxpicker().on('change', function () {
+        var image_list = JS9.images;
+        for (i = 0; i < image_list.length; i++) {
+          if (image_list[i].params.colormap == 'blue') {
+            if (image_list[i].params.bounce == false) {
+              image_list[i].params.bounce = true;
+            } else {
+              image_list[i].params.bounce = false;
+            }
+            image_list[i].displayImage('all');
+          }
+        }
+      });
+
+      // Listen to changes in the RGB sliders
+      redContrastRange.addEventListener('input', function () {
+        redContrast = parseFloat(this.value);
+        updateContrast(redContrastRange, redContrast);
+      });
+      redBrightnessRange.addEventListener('input', function () {
+        redBrightness = parseFloat(this.value);
+        updateBrightness(redBrightnessRange, redBrightness);
+      });
+
+      greenContrastRange.addEventListener('input', function () {
+        greenContrast = parseFloat(this.value);
+        updateContrast(greenContrastRange, greenContrast);
+      });
+      greenBrightnessRange.addEventListener('input', function () {
+        greenBrightness = parseFloat(this.value);
+        updateBrightness(greenBrightnessRange, greenBrightness);
+      });
+
+      blueContrastRange.addEventListener('input', function () {
+        blueContrast = parseFloat(this.value);
+        updateContrast(blueContrastRange, blueContrast);
+      });
+      blueBrightnessRange.addEventListener('input', function () {
+        blueBrightness = parseFloat(this.value);
+        updateBrightness(blueBrightnessRange, blueBrightness);
+      });
+
+
+      function readURL() {
+        for (var i = 0; i < 3; i++) {
+          var colour = allColour[i];
+          var inputfile = inputFile.files[0];
+          var filename = inputfile.name;
+          var fileid = inputfile.name;
+          if (i == 1) {
+            fileid += '<2>';
+          } else if (i == 2) {
+            fileid += '<3>';
+          }
+          console.log(fileid);
+          opts = {
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: colour,
+            zoom: "0.5",
+            parentFile: "fits/" + filename
+          }
+          blendopts = {
+            display: 'JS9',
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: colour,
+            zoom: "0.5",
+            parentFile: "fits/" + filename,
+            onload: function () {
+              JS9.BlendImage(true);
+              JS9.BlendImage("screen", 1.0);
+            }
+          }
+          bgopts = {
+            display: 'bgDummy',
+            scale: "log",
+            scaleclipping: "zmax",
+            colormap: colour,
+            zoom: "0.5",
+            parentFile: "fits/" + filename,
+            onload: function (fileid) {
+              $(JS9.lookupImage(fileid, 'bgDummy').blendImage()).prop({
+                "active": true,
+                "mode": "screen",
+                "opacity": 1.0
+              });
+            }
+          }
+          JS9.Load(inputfile, opts, {
+            display: colour + "Channel"
+          });
+          JS9.Load(inputfile, blendopts, {
+            display: "JS9"
+          });
+          JS9.Load(inputfile, bgopts, {
+            display: "bgDummy"
+          });
+        }
       }
-    }
 
-    function mySaveIMG(ftype, mysize) {
+      function mySaveIMG(ftype, mysize) {
 
-      redSize = JS9.getImage('redChannel').params.image.xdim;
-      greenSize = JS9.getImage('greenChannel').params.image.xdim;
-      blueSize = JS9.getImage('blueChannel').params.image.xdim;
-      imSize = Math.max(redSize, greenSize, blueSize);
+        redSize = JS9.getImage('redChannel').params.image.xdim;
+        greenSize = JS9.getImage('greenChannel').params.image.xdim;
+        blueSize = JS9.getImage('blueChannel').params.image.xdim;
+        imSize = Math.max(redSize, greenSize, blueSize);
 
-      JS9.LookupDisplay('bgDummy').resize(mysize, mysize);
-      JS9.LookupDisplay('bgDummy').image.setZoom(mysize/imSize);
-      setTimeout( function() {JS9.LookupDisplay('bgDummy').image.saveIMG("3ColourImage."+ftype,ftype)}, (Math.log(mysize)-1.3)*500);
+        JS9.LookupDisplay('bgDummy').resize(mysize, mysize);
+        JS9.LookupDisplay('bgDummy').image.setZoom(mysize / imSize);
+        setTimeout(function () {
+          JS9.LookupDisplay('bgDummy').image.saveIMG("3ColourImage." + ftype, ftype)
+        }, (Math.log(mysize) - 1.3) * 500);
       }
 
-    $(document).ready(function () {
-      JS9.LookupDisplay('JS9').blendMode = true;
-      JS9.LookupDisplay('bgDummy').blendMode = true;
-    })
-
+      $(document).ready(function () {
+        JS9.LookupDisplay('JS9').blendMode = true;
+        JS9.LookupDisplay('bgDummy').blendMode = true;
+      })
     </script>
   </body>
 </html>

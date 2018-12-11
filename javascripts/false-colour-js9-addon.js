@@ -20,11 +20,9 @@ function updateContrast(e, c) {
   var colourmap;
   if (e.id == 'redContrast') {
     colourmap = 'red';
-  }
-  else if (e.id == 'greenContrast') {
+  } else if (e.id == 'greenContrast') {
     colourmap = 'green';
-  }
-  else if (e.id == 'blueContrast') {
+  } else if (e.id == 'blueContrast') {
     colourmap = 'blue';
   }
   var image_list = JS9.images;
@@ -48,11 +46,9 @@ function updateBrightness(e, c) {
   var imageid;
   if (e.id == 'redBrightness') {
     colourmap = 'red';
-  }
-  else if (e.id == 'greenBrightness') {
+  } else if (e.id == 'greenBrightness') {
     colourmap = 'green';
-  }
-  else if (e.id == 'blueBrightness') {
+  } else if (e.id == 'blueBrightness') {
     colourmap = 'blue';
   }
   var image_list = JS9.images;
@@ -84,15 +80,8 @@ function zoomdisplay(s) {
     displayid = displays[i].id
     if (displayid != s) {
       if (s == "JS9") {
-        JS9.getImage(displayid).setZoom(zoomlevel * 0.5);
-      }
-      else if (displayid == "JS9") {
-        JS9.getImage(displayid).setZoom(zoomlevel * 2.0);
-      }
-      else {
         JS9.getImage(displayid).setZoom(zoomlevel);
       }
     }
   }
 }
-

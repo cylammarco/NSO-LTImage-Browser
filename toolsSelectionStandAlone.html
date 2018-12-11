@@ -36,16 +36,14 @@
           <input class="checkbox-option default-true" id="menubar" type="checkbox" checked>
         </td>
       </tr>
-      <!--
       <tr>
         <td>
-          Finder Viewer
+          Magnifier Viewer
         </td>
         <td>
-          <input class="checkbox-option default-true" id="finderviewer" type="checkbox" checked>
+          <input class="checkbox-option default-false" id="magnifierviewer" type="checkbox">
         </td>
       </tr>
-    -->
       <tr>
         <td>
           Distance
@@ -126,37 +124,38 @@
     </table>
     </br>
     <div class="JS9Menubar" id='SUPERMENU_Menubar' data-displays="*" data-width="600px"></div>
-
     <table>
       <tr>
-        <td><div class="JS9" id="JS9" data-width="600px" data-height="600px" style="width:600px height:600px top:0px left:0px bottom:0px right:0px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div></td>
+        <td>
+          <div class="JS9" id="JS9" data-width="600px" data-height="600px" style="width:600px height:600px top:0px left:0px bottom:0px right:0px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div>
+        </td>
+        <td>
+          <div class="JS9Magnifier"></div>
+        </td>
       </tr>
     </table>
-    <!--<div class="JS9Colorbar" data-width="600px"></div>-->
     </br>
-        <table>
-
+    <table>
       <!--  Brightness & Contrast -->
-
-          <tr>
-            <td>
-              <div>
-                <label class='label file'>Load File<input id='inputfile' type='file'></label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
+      <tr>
+        <td>
+          <div>
+            <label class='label file'>Load File<input id='inputfile' type='file'></label>
+          </div>
+        </td>
+      </tr>
+    </table>
     <div class="ImexamContainer">
-
-       <table cellpadding="5" cellspacing="8">
+      <table cellpadding="5" cellspacing="8">
         <tr>
-        </br>
+          </br>
           <div class="distancebox">
             <input class="btn btn-default region" value="Add a Line" id="line" data-js9id="JS9">
+            <div class="lineWidth"></div>
+            <div class="lineHeight"></div>
+            <div class="lineDistance"></div>
           </div>
         </tr>
-
         <tr>
           <div class="regionbox">
             Choose the shape of the aperture for photometry:
@@ -165,168 +164,64 @@
             <input class="btn btn-default region" value="Ellipse" id="ellipse" data-js9id="JS9">
           </div>
         </tr>
-
         <tr>
-          <td><div class="ImExamRegionStats" data-js9id="JS9"></div></td>
-          <td><div class="ImExamRadialProj" data-js9id="JS9"></div></td>
-          <td><div class="ImExamHistogram" data-js9id="JS9"></div></td>
-          <td><div class="ImExamEncEnergy" data-js9id="JS9"></div></td>
+          <td>
+            <div class="ImExamRegionStats" data-js9id="JS9"></div>
+          </td>
+          <td>
+            <div class="ImExamRadialProj" data-js9id="JS9"></div>
+          </td>
+          <td>
+            <div class="ImExamHistogram" data-js9id="JS9"></div>
+          </td>
+          <td>
+            <div class="ImExamEncEnergy" data-js9id="JS9"></div>
+          </td>
         </tr>
       </table>
     </div>
-
-<table>
-        <tr>
-          <div class="JS9Info" data-js9id="JS9" data-width="325px"></div>
-        </tr>
-
-        <tr>
-          <div id="blinkController">
-            Start and Stop Blinking -> <input class="blinkStatus" type="checkbox" data-reverse>
-          </div>
-        </tr>
-
-        <tr>
-          <div id='save640'>
-            <input class="btn btn-default" value="Save As PNG (640px)" onclick="javascript:mySaveIMG('PNG', 640)">
-            <input class="btn btn-default" value="Save As JPG (640px)" onclick="javascript:mySaveIMG('JPG', 640)">
-          </div>
-        </tr>
-
-        <tr>
-          <div id='save1024'>
-            <input class="btn btn-default" value="Save As PNG (1024px)" onclick="javascript:mySaveIMG('PNG', 1024)">
-            <input class="btn btn-default" value="Save As JPG (1024px)" onclick="javascript:mySaveIMG('JPG', 1024)">
-          </div>
-        </tr>
-
-        <tr>
-          <div id='save2048'>
-            <input class="btn btn-default" value="Save As PNG (2048px)" onclick="javascript:mySaveIMG('PNG', 2048)">
-            <input class="btn btn-default" value="Save As JPG (2048px)" onclick="javascript:mySaveIMG('JPG', 2048)">
-          </div>
-        </tr>
-</table>
-
+    <table>
+      <tr>
+        <div class="JS9Info" data-js9id="JS9" data-width="325px"></div>
+      </tr>
+      <tr>
+        <div id="blinkController">
+          Start and Stop Blinking -> <input class="blinkStatus" type="checkbox" data-reverse>
+          <br>
+          Blink rate: <button type="button" class="buttonMinus">-</button><button type="button" class="buttonPlus">+</button>
+        </div>
+      </tr>
+      <tr>
+        <div id='save640'>
+          <input class="btn btn-default" value="Save As PNG (640px)" onclick="javascript:mySaveIMG('PNG', 640)">
+          <input class="btn btn-default" value="Save As JPG (640px)" onclick="javascript:mySaveIMG('JPG', 640)">
+        </div>
+      </tr>
+      <tr>
+        <div id='save1024'>
+          <input class="btn btn-default" value="Save As PNG (1024px)" onclick="javascript:mySaveIMG('PNG', 1024)">
+          <input class="btn btn-default" value="Save As JPG (1024px)" onclick="javascript:mySaveIMG('JPG', 1024)">
+        </div>
+      </tr>
+      <tr>
+        <div id='save2048'>
+          <input class="btn btn-default" value="Save As PNG (2048px)" onclick="javascript:mySaveIMG('PNG', 2048)">
+          <input class="btn btn-default" value="Save As JPG (2048px)" onclick="javascript:mySaveIMG('JPG', 2048)">
+        </div>
+      </tr>
+    </table>
     <script type="text/javascript">
 
       $(':checkbox').checkboxpicker();
 
-      function resetForm() {
-        $(".default-true").prop('checked', true);
-        $(".default-false").prop('checked', false);
-        JS9.CloseDisplay('JS9');
-      }
-
+      var blinkrate = 500;
       JS9.globalOpts.mouseActions[1] = "pan the image";
       JS9.globalOpts.touchActions[1] = "pan the image";
       JS9.globalOpts.mousetouchZoom = true;
       JS9.globalOpts.clearImageMemory = "auto";
 
-      $('#menubar').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('JS9Menubar')[0];
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-/*
-      $('#finderviewer').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('finderwindow')[0];
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-*/
-      $('#distancetools').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('distancebox')[0];
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#regiontools').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('regionbox')[0];
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#regionstats').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('ImExamRegionStats')[0].parentNode;
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#radialprofile').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('ImExamRadialProj')[0].parentNode;
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#histogram').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('ImExamHistogram')[0].parentNode;
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#energy').checkboxpicker().on('change', function () {
-        e = document.getElementsByClassName('ImExamEncEnergy')[0].parentNode;
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-
-      $('#blink').checkboxpicker().on('change', function () {
-        e = document.getElementById('blinkController');
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-      $('#header').checkboxpicker().on('change', function () {
-        e = document.getElementById('JS9Info');
-        if (e.style.display == null || e.style.display == "none") {
-          e.style.display = "block";
-        }
-        else {
-          e.style.display = "none";
-        }
-      });
-
-
       function init() {
-        var i, s;
+        var i, s;        
         // set wcs display to degrees
         JS9.imageOpts.wcsunits = "degrees";
         // a loop to load all files into the display:
@@ -335,6 +230,8 @@
         document.getElementById('save1024').style.display = "none";
         document.getElementById('save2048').style.display = "none";
         document.getElementsByClassName('distancebox')[0].style.display = "none";
+        document.getElementsByClassName('JS9Magnifier')[0].style.display = "none";
+        document.getElementsByClassName('JS9PluginToolbar-div')[0].style.display = "none";
         document.getElementsByClassName('regionbox')[0].style.display = "none";
         document.getElementsByClassName('JS9Info')[0].style.display = "none";
         document.getElementsByClassName('ImExamRegionStats')[0].parentNode.style.display = "none";
@@ -347,30 +244,160 @@
         init();
       });
 
+      function resetForm() {
+        $(".default-true").prop('checked', true);
+        $(".default-false").prop('checked', false);
+        JS9.CloseDisplay('JS9');
+        blinkrate = 500;
+      }
+
+      $('#menubar').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('JS9Menubar')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+      
+      $('#magnifierviewer').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('JS9Magnifier')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
+      });
+      
+      $('#distancetools').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('distancebox')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#regiontools').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('regionbox')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#regionstats').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamRegionStats')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#radialprofile').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamRadialProj')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#histogram').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamHistogram')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#energy').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('ImExamEncEnergy')[0].parentNode;
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+
+      $('#blink').checkboxpicker().on('change', function () {
+        e = document.getElementById('blinkController');
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
+      $('#header').checkboxpicker().on('change', function () {
+        e = document.getElementById('JS9Info');
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        } else {
+          e.style.display = "none";
+        }
+      });
+
       $(".region").on('click', function (evt) {
         var s = $(evt.currentTarget).attr("id");
         JS9.AddRegions(s);
-        return false;
       });
+
+      JS9.Regions.opts.onchange = function () {
+        l = JS9.GetRegionStats(JS9.GetRegions()[0]).reg.pts;
+        lw = l[1].x - l[0].x;
+        lh = l[1].y - l[0].y;
+        llen = Math.sqrt(Math.pow(lw,2) + Math.pow(lh,2));
+        lw = Math.round(lw*100) / 100;
+        lh = Math.round(lh*100) / 100;
+        llen = Math.round(llen*100) / 100;
+        $(".lineWidth").html("Width = " + Math.abs(lw));
+        $(".lineHeight").html("Height = " + Math.abs(lh));
+        $(".lineDistance").html("Distance = " + Math.abs(llen));
+      }
+
 
       var blinkModeOn = false;
 
+      $(".buttonPlus").on("click", function() {
+        if (blinkrate > 150) {
+          blinkrate /= 2;
+        }
+      });
+
+      $(".buttonMinus").on("click", function() {
+        if (blinkrate < 2000) {
+          blinkrate *= 2;
+        }
+      });
+
       $('.blinkStatus').checkboxpicker().on('change', function () {
-        if (blinkModeOn  == false) {
-          blinkModeOn  = true;
+        if (blinkModeOn == false) {
+          blinkModeOn = true;
         } else {
-          blinkModeOn  = false;
+          blinkModeOn = false;
         }
         blinkfunc();
       });
 
-      var blinkfunc = function() {
+      var blinkfunc = function () {
         var imlist = JS9.images;
 
-        asyncForEach(imlist, async (im) => {
-          if (blinkModeOn) { im.displayImage();}
-          await waitFor(1000);
-        }).then( function () {if (blinkModeOn) { blinkfunc(); } })
+        asyncForEach(imlist, async(im) => {
+          if (blinkModeOn) {
+            im.displayImage();
+          }
+          await waitFor(blinkrate);
+        }).then(function () {
+          if (blinkModeOn) {
+            blinkfunc();
+          }
+        })
 
       }
 
@@ -397,21 +424,21 @@
             scale: "log",
             scaleclipping: "zmax",
             colormap: "grey",
-            zoom: "0.5"
+            zoom: "1.0"
           },
           {
             parentFile: "fits/h_e_20170924_43_1_1_1.gz",
             scale: "log",
             scaleclipping: "zmax",
             colormap: "grey",
-            zoom: "0.5"
+            zoom: "1.0"
           },
           {
             parentFile: "fits/h_e_20170924_44_1_1_1.gz",
             scale: "log",
             scaleclipping: "zmax",
             colormap: "grey",
-            zoom: "0.5"
+            zoom: "1.0"
           }
         ];
 
@@ -427,18 +454,18 @@
       /* Load files on local machine */
       var inputfile = document.querySelector('#inputfile');
       inputfile.addEventListener('change', readURLfile);
-      
+
       function readURLfile() {
         readURL(inputfile, 'grey');
       }
-      
+
       function readURL(input, colour) {
         var inputfile = input.files[0];
         opts = {
           scale: "log",
           scaleclipping: "zmax",
           colormap: colour,
-          zoom: "0.5",
+          zoom: "1.0",
           parentFile: "fits/" + inputfile.name
         }
         JS9.Load(inputfile, opts);
