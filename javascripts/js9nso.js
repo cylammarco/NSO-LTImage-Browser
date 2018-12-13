@@ -85,3 +85,63 @@ function zoomdisplay(s) {
     }
   }
 }
+
+function tiledisplay(s) {
+  // Number of images
+  nImg = JS9.images.length;
+  nSqrt = Math.floor(Math.sqrt(nImg));
+  nRow = nSqrt;
+  nCol = nSqrt;
+  if (nImg > nRow * nCol) {
+    nCol++;
+    if (nImg > nRow * nCol) {
+      nRow++;
+    }
+  }
+  tWidth = 600/nCol + 'px';
+  tHeight = 600/nRow + 'px';
+  JS9.LookupDisplay(s).nextImage();
+  $('#JS9')[0].style.width = tWidth;
+  $('#JS9')[0].style.height = tHeight;
+  $('#JS9')[0].style.display = 'inline-block';
+  for (var i=1; i<nImg; i++) {
+    id = "divJS9_" + i;
+    // make up the html with the unique id
+    html = sprintf("<div class='" + s + "' id='%s' data-width='" + tWidth + "' data-height='" + tHeight + "'><\/div>", id, id);
+    // append to <div class=JS9Displays>
+    $(html).appendTo($(".JS9Displays"));
+    // create the new JS9 display
+    JS9.AddDivs(id);
+    // move the first image to that display
+    JS9.MoveToDisplay(id, {display: s});
+    if ((i) % nCol == nCol-1) {
+      $("<br>").appendTo($(".JS9Displays"));
+    }
+    $('#' + id)[0].style.display = 'inline-block';
+  }
+}
+
+function gatherdisplay(s) {
+  JS9.GatherDisplay(s, {display: id});
+  nImg = JS9.images.length;
+  for (var i=nImg; i>0; i--) {
+    id = "divJS9_" + i;
+    // make up the html with the unique id
+    $(".JS9Displays #" + id).remove();
+    JS9.displays.splice(i,1);
+  }
+  $('#JS9')[0].style.width = '600px';
+  $('#JS9')[0].style.height = '600px';
+  $('.JS9Displays').find('br').remove();
+  childnodes = $(".JS9Displays")[0].childNodes;
+  for (var j=0; j<childnodes.length; j++) {
+    if (childnodes[j].nodeName == "#text"){
+      $(".JS9Displays")[0].childNodes[j].remove();
+    }
+  }
+}
+
+
+
+
+
