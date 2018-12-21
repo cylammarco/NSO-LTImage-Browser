@@ -387,10 +387,6 @@ function loadOpts(file) {
   // before it is read
   reader.onloadend = function() {
     obj = JSON.parse(reader.result);
-    console.log(obj);
-    // change the cursor to show the waiting status
-    JS9.waiting(true, this.display);
-
     // reconstitute display parameters
     JS9.LookupDisplay('JS9').blendMode = obj.display.blendMode;
     for (var i=0; i<JS9.images.length; i++) {
@@ -407,8 +403,6 @@ function loadOpts(file) {
       im.params.scalemin = obj[colour].scalemin;
       im.displayImage('all');
     }
-    // done waiting
-    JS9.waiting(false);
   }
 }
 
