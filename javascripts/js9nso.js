@@ -294,10 +294,7 @@ function gatherdisplay(s) {
 // the default saveIMG function only save the part of the image being displayed
 function mySaveIMG(ftype, mysize) {
 
-  redSize = JS9.getImage('redChannel').params.image.xdim;
-  greenSize = JS9.getImage('greenChannel').params.image.xdim;
-  blueSize = JS9.getImage('blueChannel').params.image.xdim;
-  imSize = Math.max(redSize, greenSize, blueSize);
+  imSize = Math.max(JS9.getImage('JS9').params.image.xdim);
 
   JS9.LookupDisplay('bgDummy').resize(mysize, mysize);
   JS9.LookupDisplay('bgDummy').image.setZoom(mysize / imSize);
@@ -398,18 +395,7 @@ function loadOpts(file) {
     JS9.LookupDisplay('JS9').blendMode = obj.display.blendMode;
     for (var i=0; i<JS9.images.length; i++) {
       im = JS9.images[i];
-      imname = im.file;
-      imid = im.id;
-      if (imid == imname) {
-        colour = 'red';
-      } else if (imid == imname + '<2>') {
-        colour = 'green';
-      } else if (imid == imname + '<3>') {
-        colour = 'blue';
-      } else {
-        JS9.error("The nsocmap file cannot be applied to non-RGB channels.");
-      }
-      im.cmapObj.name = colour;
+      colour = im.cmapObj.name;
       im.params.bias = obj[colour].bias;
       im.params.bounce = obj[colour].bounce;
       im.params.colormap = obj[colour].colormap;
@@ -424,4 +410,29 @@ function loadOpts(file) {
     // done waiting
     JS9.waiting(false);
   }
-};
+}
+
+// Turn on blend mode until n images are loaded
+function blendAll(n) {
+  // Change blend mode to true when all images are loaded
+  var checkLoad = function() {
+      if (JS9.images.length < n) {
+        setTimeout(checkLoad, 100);
+        //console.log('waiting');
+        //console.log(JS9.images.length + ' loaded');
+      } else {
+        //console.log('ready to load');
+        im = JS9.images;
+        for (var i = 0; i < n; i++) {
+          $(im[i].blendImage()).prop({
+          "active": true,
+          "mode": "screen",
+          "opacity": 1.0
+          });
+          im[i].displayImage('all');
+        }
+      }
+    }
+  // apply blend mode
+  setTimeout(checkLoad, 100);
+}

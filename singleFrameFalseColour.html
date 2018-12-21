@@ -29,20 +29,11 @@
            <!-- A single 600px by 600px display -->
           <div class="JS9" id="JS9" data-width="600px" data-height="600px"></div>
         </td>
-        <td>
-          <div class="JS9" id="redChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('redChannel', displayid)" onwheel="javascript:zoomdisplay('redChannel', displayid)" style="display:none"></div>
-        </td>
       </tr>
       <tr>
+        <!-- A dummy display running in the background to process the full frame image  style="display:none"-->
         <td>
-          <div class="JS9" id="greenChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('greenChannel')" onwheel="javascript:zoomdisplay('greenChannel', displayid)" style="display:none"></div>
-        </td>
-        <td>
-          <div class="JS9" id="blueChannel" data-width="300px" data-height="300px" onclick="javascript:pandisplay('blueChannel')" onwheel="javascript:zoomdisplay('blueChannel', displayid)" style="display:none"></div>
-        </td>
-        <!-- A dummy display running in the background to process the full frame image -->
-        <td>
-          <div class="JS9" id="bgDummy" data-width="200px" data-height="200px" style="display:none"></div>
+          <div class="JS9" id="bgDummy" data-width="200px" data-height="200px"></div>
         </td>
       </tr>
     </table>
@@ -382,15 +373,6 @@
           } else if (i == 2) {
             fileid += '<3>';
           }
-
-          opts = {
-            ...NSO.imgOpts,
-            ...{
-              display: colour + "Channel",
-              colormap: colour,
-              parentFile: "fits/" + filename
-            }
-          };
           /*
            * Note the thre dot syntax, it is for joining objects
            * DO NOT REMOVE the ... unless you have a different implementation
@@ -402,11 +384,7 @@
             ...{
               display: 'JS9',
               colormap: colour,
-              parentFile: "fits/" + filename,
-              onload: function () {
-                JS9.BlendImage(true);
-                JS9.BlendImage("screen", 1.0);
-              }
+              parentFile: "fits/" + filename
             }
           };
           bgopts = {
@@ -414,22 +392,16 @@
             ...{
               display: 'bgDummy',
               colormap: colour,
-              parentFile: "fits/" + filename,
-              onload: function (fileid) {
-                $(JS9.lookupImage(fileid, 'bgDummy').blendImage()).prop({
-                  "active": true,
-                  "mode": "screen",
-                  "opacity": 1.0
-                });
-              }
+              parentFile: "fits/" + filename
             }
           };
-          JS9.Load(input, opts);
+          console.log(blendopts);
+          console.log(bgopts);
           JS9.Load(input, blendopts);
           JS9.Load(input, bgopts);
         }
+        blendAll(6);
       }
-
     </script>
   </body>
 </html>
