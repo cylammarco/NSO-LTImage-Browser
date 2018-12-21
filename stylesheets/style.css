@@ -40,7 +40,8 @@ input[type="file"] {
 }
 
 .label:hover {
-    box-shadow: 1px 1px 1px yellow;
+    -webkit-box-shadow: 1px 1px 1px yellow;
+            box-shadow: 1px 1px 1px yellow;
 }
 
 .label.red {
