@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9prefs.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9support.min.js"></script>
-    <script type="text/javascript" src="javascripts/js9/js9.js"></script>
+    <script type="text/javascript" src="javascripts/js9/js9.min.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9plugins.js"></script>
     <script type="text/javascript" src="javascripts/js9/js9usermenus.js"></script>
     <script type="text/javascript" src="javascripts/js9nso.js"></script>
@@ -42,6 +42,14 @@
         </td>
         <td>
           <input class="checkbox-option default-false" id="magnifierviewer" type="checkbox">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          zmin/zmax
+        </td>
+        <td>
+          <input class="checkbox-option default-false" id="zminmax" type="checkbox">
         </td>
       </tr>
       <tr>
@@ -128,7 +136,7 @@
       <tr>
         <td>
           <div class="JS9Displays">
-            <div class="JS9" id="JS9" data-width="600px" data-height="600px" style="width:600px height:600px top:0px left:0px bottom:0px right:0px" onclick="javascript:pandisplay('JS9')" onwheel="javascript:zoomdisplay('JS9')"></div>
+            <div class="JS9" id="JS9" data-width="600px" data-height="600px"></div>
           </div>
         </td>
         <td>
@@ -149,6 +157,12 @@
             <label class='label file'>Load File<input id='inputfile' type='file'></label>
           </div>
         </td>
+      </tr>
+      <tr>
+        <div class="zminmaxslidercontainer" data-js9id="JS9">
+          z-min <input type="range" min="0" max="48165" value="0" class="slider zMin" id='zMin'></input>
+          z-max<input type="range" min="0" max="48165" value="48165" class="slider zMax" id='zMax'></input>
+        </div>
       </tr>
     </table>
     <div class="ImexamContainer">
@@ -218,18 +232,14 @@
     </table>
     <script type="text/javascript">
 
+      /* Enabling bootstrap checkbox
+       * https://github.com/vsn4ik/bootstrap-checkbox
+       */
       $(':checkbox').checkboxpicker();
 
-      var blinkrate = 500;
-      JS9.globalOpts.mouseActions[1] = "pan the image";
-      JS9.globalOpts.touchActions[1] = "pan the image";
-      JS9.globalOpts.mousetouchZoom = true;
-      JS9.globalOpts.clearImageMemory = "auto";
-
       function init() {
-        var i, s;        
-        // set wcs display to degrees
-        JS9.imageOpts.wcsunits = "degrees";
+        var blinkrate = NSO.blinkrate;
+        var blinkModeOn = NSO.blinkMode;
         // a loop to load all files into the display:
         document.getElementById('blinkController').style.display = "none";
         document.getElementById('save640').style.display = "none";
@@ -237,6 +247,7 @@
         document.getElementById('save2048').style.display = "none";
         document.getElementsByClassName('distancebox')[0].style.display = "none";
         document.getElementsByClassName('JS9Magnifier')[0].style.display = "none";
+        document.getElementsByClassName('zminmaxslidercontainer')[0].style.display = "none";
         document.getElementsByClassName('JS9PluginToolbar-div')[0].style.display = "none";
         document.getElementsByClassName('regionbox')[0].style.display = "none";
         document.getElementsByClassName('JS9Info')[0].style.display = "none";
@@ -250,11 +261,14 @@
         init();
       });
 
+      /* Reset the page by changing all checkbox to default and
+       * removes all loaded images
+       */
       function resetForm() {
         $(".default-true").prop('checked', true);
         $(".default-false").prop('checked', false);
         JS9.CloseDisplay('JS9');
-        blinkrate = 500;
+        blinkinterval = NSO.blinkInterval;
       }
 
       $('#menubar').checkboxpicker().on('change', function () {
@@ -275,7 +289,17 @@
           e.style.display = "none";
         }
       });
-      
+
+      $('#zminmax').checkboxpicker().on('change', function () {
+        e = document.getElementsByClassName('zminmaxslidercontainer')[0];
+        if (e.style.display == null || e.style.display == "none") {
+          e.style.display = "block";
+        }
+        else {
+          e.style.display = "none";
+        }
+      });
+
       $('#distancetools').checkboxpicker().on('change', function () {
         e = document.getElementsByClassName('distancebox')[0];
         if (e.style.display == null || e.style.display == "none") {
@@ -330,7 +354,6 @@
         }
       });
 
-
       $('#blink').checkboxpicker().on('change', function () {
         e = document.getElementById('blinkController');
         if (e.style.display == null || e.style.display == "none") {
@@ -367,18 +390,34 @@
         $(".lineDistance").html("Distance = " + Math.abs(llen));
       }
 
+      /* Selecting the brightness and contrast sliders */
+      var zMinRange = document.getElementById('zMin');
+      var zMaxRange = document.getElementById('zMax');
 
-      var blinkModeOn = false;
+      /* Get the current brightness and contrast values from the sliders*/
+      var zMin = parseFloat(zMinRange.value);
+      var zMax = parseFloat(zMaxRange.value);
 
+      zMinRange.addEventListener('input', function () {
+        zMin = parseFloat(this.value);
+        updateZMin(zMinRange, zMaxRange, zMin);
+      });
+      zMaxRange.addEventListener('input', function () {
+        zMax = parseFloat(this.value);
+        updateZMax(zMinRange, zMaxRange, zMax);
+      });
+
+      /* Increase the blink rate / Decrease the blink interval */
       $(".buttonPlus").on("click", function() {
-        if (blinkrate > 150) {
-          blinkrate /= 2;
+        if (blinkinterval > NSO.minBlinkInterval) {
+          blinkinterval /= 2;
         }
       });
 
+      /* Decrease the blink rate / Increase the blink interval */
       $(".buttonMinus").on("click", function() {
-        if (blinkrate < 2000) {
-          blinkrate *= 2;
+        if (blinkinterval < NSO.maxBlinkInterval) {
+          blinkinterval *= 2;
         }
       });
 
@@ -391,90 +430,52 @@
         blinkfunc();
       });
 
-      var blinkfunc = function () {
-        var imlist = JS9.images;
-
-        asyncForEach(imlist, async(im) => {
-          if (blinkModeOn) {
-            im.displayImage();
-          }
-          await waitFor(blinkrate);
-        }).then(function () {
-          if (blinkModeOn) {
-            blinkfunc();
-          }
-        })
-
-      }
-
-      // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
-      const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
-
-      async function asyncForEach(array, callback) {
-        for (let index = 0; index < array.length; index++) {
-          await callback(array[index], index, array)
-        }
-      }
-
-      var xdir = "images/";
-
       function loadim() {
         resetForm();
-        var files = [
-          "h_e_20170924_42_1_1_1.gz",
-          "h_e_20170924_43_1_1_1.gz",
-          "h_e_20170924_44_1_1_1.gz"
-        ];
-        var opts = [{
-            parentFile: "fits/h_e_20170924_42_1_1_1.gz",
-            scale: "log",
-            scaleclipping: "zmax",
-            colormap: "grey",
-            zoom: "1.0"
-          },
-          {
-            parentFile: "fits/h_e_20170924_43_1_1_1.gz",
-            scale: "log",
-            scaleclipping: "zmax",
-            colormap: "grey",
-            zoom: "1.0"
-          },
-          {
-            parentFile: "fits/h_e_20170924_44_1_1_1.gz",
-            scale: "log",
-            scaleclipping: "zmax",
-            colormap: "grey",
-            zoom: "1.0"
-          }
-        ];
+        var files = NSO.exampleFiles;
+        opts1 = {
+            ...NSO.imgOpts,
+            ...{
+            parentFile: "fits/" + files[0],
+            colormap: "grey"
+            }
+          };
+        opts2 = {
+            ...NSO.imgOpts,
+            ...{
+            parentFile: "fits/" + files[1],
+            colormap: "grey"
+            }
+          };
+        opts3 = {
+            ...NSO.imgOpts,
+            ...{
+            parentFile: "fits/" + files[2],
+            colormap: "grey"
+            }
+          };
+        opts = [opts1, opts2, opts3]
 
-        // set wcs display to degrees
-        JS9.imageOpts.wcsunits = "degrees";
         // a loop to load all files into the display:
         for (var i = 0; i < files.length; i++) {
           var thisfilename = files[i];
-          JS9.Load(xdir + thisfilename, opts[i]);
+          JS9.Load("images/" + thisfilename, opts[i]);
         }
       }
 
       /* Load files on local machine */
       var inputfile = document.querySelector('#inputfile');
-      inputfile.addEventListener('change', readURLfile);
+      inputfile.addEventListener('change', readURL);
 
-      function readURLfile() {
-        readURL(inputfile, 'grey');
-      }
-
-      function readURL(input, colour) {
-        var inputfile = input.files[0];
+      function readURL() {
         opts = {
-          scale: "log",
-          scaleclipping: "zmax",
-          colormap: colour,
-          zoom: "1.0",
-          parentFile: "fits/" + inputfile.name
-        }
-        JS9.Load(inputfile, opts);
+          ...NSO.imgOpts,
+          ...{
+            colormap: "grey",
+            parentFile: "fits/" + input.name
+          }
+        };
+        JS9.Load(input, opts);
       }
 
     </script>

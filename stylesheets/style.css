@@ -23,6 +23,8 @@ table {
     border-color: transparent;
 }
 
+/* Load file, rgb file, colour map files "button" */
+
 input[type="file"] {
     display: none;
 }
@@ -37,6 +39,10 @@ input[type="file"] {
     display: inline-block;
 }
 
+.label:hover {
+    box-shadow: 1px 1px 1px yellow;
+}
+
 .label.red {
     background-color: red;
 }
@@ -47,6 +53,15 @@ input[type="file"] {
 
 .label.blue {
     background-color: blue;
+}
+
+.label.grey {
+    background-color: gray;
+}
+
+.label.colourmap {
+    color: black;
+    background-color: silver;
 }
 
 
@@ -328,6 +343,80 @@ input[type="file"] {
 }
 
 .rgbslidercontainer>.slider::-moz-range-thumb {
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    /* Cursor on hover */
+}
+
+
+.zminmaxslidercontainer {
+    --sliderheight: 200px;
+    --sliderwidth: 20px;
+    --buttonwidth: 10px;
+}
+
+.zminmaxslidercontainer>.slider {
+    /* Override default CSS styles */
+    /* Firefox */
+    -moz-appearance: none;
+         appearance: none;
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    -webkit-writing-mode: none;
+        -ms-writing-mode: none;
+            writing-mode: none;
+    /* Full-width (height after rotation) */
+    width: var(--sliderheight);
+    /* Specified height (width after rotation) */
+    height: var(--sliderwidth);
+    outline: none;
+}
+
+.zMin {
+    background: -webkit-gradient(linear, left top, right top, from(black), to(grey));
+    background: -webkit-linear-gradient(left, black, grey);
+    background: -o-linear-gradient(left, black, grey);
+    background: linear-gradient(to right, black, grey);
+}
+
+.zMax {
+    background: -webkit-gradient(linear, left top, right top, from(grey), to(white));
+    background: -webkit-linear-gradient(left, grey, white);
+    background: -o-linear-gradient(left, grey, white);
+    background: linear-gradient(to right, grey, white);
+}
+
+.zminmaxslidercontainer>.slider::-webkit-slider-thumb {
+    /* Override default CSS styles */
+    /* Chrome */
+    -webkit-appearance: none;
+    /* IE */
+    -webkit-writing-mode: none;
+            writing-mode: none;
+    width: var(--buttonwidth);
+    /* Set a specific slider handle width */
+    height: var(--sliderwidth);
+    /* Slider handle height */
+    background: transparent;
+    /* Grey */
+    border: 3px solid black;
+    border-radius: 4px;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    /* Cursor on hover */
+}
+
+.zminmaxslidercontainer>.slider::-moz-range-track {
+    background-color: transparent;
+}
+
+.zminmaxslidercontainer>.slider::-moz-range-thumb {
     width: var(--buttonwidth);
     /* Set a specific slider handle width */
     height: var(--sliderwidth);
